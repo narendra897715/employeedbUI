@@ -1,0 +1,1008 @@
+<div layout="column" layout-fill layout-padding flex style="background:white;border-radius: 10px;">
+	<div class="layout-column flex" style="background: #eaeaea;border-radius: 10px">
+		<div style="min-height: 50px" class="layout-row">
+			<div class="layout-row flex-xs-50 flex-gt-xs-45 flex-gt-sm-25 flex-25 layout-align-start-center">
+				<span><img ng-src="Assets\user-icon_black.svg" style="height: 40px;padding: 0 8px"></span>
+				<span class="view-header">Personal Details</span>
+				<span ng-show="selectedEmployee.isActive"><i class="material-icons merilytics-cursor-pointer" style="font-size: 24px !important;margin-left: 16px;" ng-click="PersonalDetailsController.ChangeEditMode()"><md-tooltip>Edit</md-tooltip>mode_edit</i></span>
+			</div>
+			<div class="flex layout-column" style="background: white;margin-right: -8px;margin-top: -8px;">
+				<div class="cutCorner"></div>
+			</div>
+			<div class="flex-80 layout-align-end-center layout-row" style="background: white;margin-left: 8px;margin-top: -8px;margin-right: -8px;">
+				<!-- <span>
+				{{sfds.isActive}}
+					<md-checkbox ng-model="sfds.isActive"  aria-label="checkbox"  ng-click = "PersonalDetailsController.changeEmploymentStatus()">
+	            		
+	          		</md-checkbox>
+				</span> -->
+					<span>
+					<input type="checkbox" ng-model="selectedEmployee.isActive" id="employeeisactivecheckbox" ng-checked="selectedEmployee.isActive" ng-click = "PersonalDetailsController.changeEmploymentStatus()"><span style = "color: #626262 !important;">Employee Status:</span>&nbsp;<span ng-style="{ 'color' : selectedEmployee.isActive ? '#95af28' : '#383085' }">{{selectedEmployee.isActive?  'Active' : 'Inactive'}} &nbsp;&nbsp;&nbsp;</span><br>
+					</span>
+				
+				<span style="color: #626262 !important"> 
+						<span class="hide-sm hide-xs">Employee Name & ID:&nbsp;</span> 
+						<span class="hide-xs" style="color: #626262 !important;font-weight: bold;" ng-show="selectedEmployee.employeeID>0">{{selectedEmployee.employeeName}}&nbsp;&nbsp;[&nbsp;{{selectedEmployee.employeeID}}&nbsp;]</span>
+				</span>
+			</div>
+		</div>
+		<div class="layout-row flex">
+			<div style="padding: 0 8px;max-height: 600px" class="layout-column" >
+				<div>
+					<div>
+						<div class="layout-row layout-align-start-center">
+							<span style="position:relative">
+							<!-- <button ng-click="PersonalDetailsController.selectFile()" style="position:absolute;top:50%">Upload Your File</button> -->
+							 <button ng-if="PersonalDetailsController.isEditMode && imageDataForEmployee == undefined"  ng-click="PersonalDetailsController.changeProfilePicture()" style="position: absolute;top: 70%;border: 2px solid gray;color: gray;background-color: white;padding: 8px 20px;border-radius: 8px;font-size: 14px;font-weight: bold;left: 10%;">Upload Picture</button>
+						
+						<md-input-container ng-show="imageDataForEmployee != undefined && PersonalDetailsController.isEditMode" style="position: absolute;top: 70%;left: 10%;">
+							
+													<md-select ng-model="imagestatus" style="border:2px solid gray"  ng-change="PersonalDetailsController.Updateimagestatus(imagestatus)"  placeholder="update image" name="genderID"  aria-label="Gender" >
+														<md-option  value=1>Change Image</md-option>
+														<md-option  value=2>Delete Image</md-option>
+													</md-select>
+											</md-input-container>
+													
+						
+							
+							<img style="background: white;min-height: 200px;border-radius: 10px" ng-if="imageDataForEmployee == undefined" src="Assets\profile-img.svg" alt="defaultprofileimage">
+							 <img style="background: white;min-height: 200px;max-height: 200px;max-width:200px;border-radius: 10px" ng-if="imageDataForEmployee != undefined" src="{{imageDataForEmployee.imageData}}" data-err-src="Assets\profile-img.svg"></span> 
+							
+						</div>
+					</div>
+				</div>
+			
+				<div class="layout-column layout-align-space-around flex">
+					<div class="layout-column">
+						<div class="layout-row layout-align-center-center view-header"><span class="merilytics-header" style="color: #95Af28; display:inline-block;width:180px;white-space: nowrap;overflow:hidden !important;text-overflow: ellipsis;text-align: center;">{{personalDetails.firstName}} {{personalDetails.middleName}} {{personalDetails.lastName}}</div>
+					</div>
+					<div class="layout-column">
+						<div class="layout-row layout-align-center-center" >
+								<span class="merilytics-header" style="font-weight: bold;font-size: 14px !important;">Emp.ID: {{personalDetails.employeeID}}</span>
+						</div>
+					</div>
+					<div class="layout-column">
+						<div class="layout-row layout-align-center-center">
+								<span class="merilytics-header" style="font-weight: bold;font-size: 14px !important;">{{professionalDetails.designation}}</span>
+						</div>
+					</div>
+					<div class="layout-column">
+						<div class="layout-row layout-align-center-center">
+							<span><img style="height: 25px" ng-src="Assets\location_green.svg"></span><span class="merilytics-header" style="font-size: 14px !important;">{{professionalDetails.workLocation}}</span>
+						</div>
+					</div>
+					<div class="layout-column">
+						<div class="layout-row layout-align-start-center layout-padding flex" style="background: white;margin-bottom: 2px;border-top-right-radius: 8px;border-top-left-radius: 8px;font-weight: bold;color: #95Af28">
+								<span ng-if="!employeeinNoticePeriod">{{professionalDetails.employementStatus_copy}}</span>
+								<span ng-if="employeeinNoticePeriod">{{employeeStatusName}}</span>
+						</div>
+						
+						<div class="layout-row layout-align-start-center layout-padding flex" style="background: white;border-bottom-right-radius: 8px;border-bottom-left-radius: 8px;">
+							Last Date : <span ng-if="employeeinNoticePeriod">{{employeeStatusDate | date}}</span>
+						</div>
+					</div>
+					<div layout="column">
+						<label class="merilytics-header personal-details-label">Blood Group</label>
+						<span style = "margin: 3px 0px">{{personalDetails.bloodGroup}}</span>	
+					</div>
+					<hr style= "margin:1px; padding:0px; opacity:0.1">
+					<div layout="column">
+						<label class="merilytics-header personal-details-label">Contact Number</label>
+						<div class="layout-row layout-align-start-center" style = "margin: 5px 0px">
+							<i class="material-icons" style="font-size: 20px !important; ">phone_iphone</i>
+							<span style="font-size: 14px !important">{{personalDetails.mobileNumber1}}</span>
+						</div>
+					</div>
+					<hr style= "margin: 1px; padding:0px; opacity:0.1">
+					<div layout="column">
+						<label class="merilytics-header personal-details-label">Emergency Contacts</label>
+						<div class="layout-row" style = "margin-top:5px"><i class="material-icons" style="font-size: 20px !important">phone_iphone</i><span style="font-size: 14px !important">{{contactDetails.primaryMobile1}}</span><span ng-if = "!contactDetails.emergencyContact1" style = "margin-top: -4px"></span></div>
+						<div class="layout-row" style = "margin:5px 0px"><i class="material-icons" style="font-size: 20px !important">phone_iphone</i><span style="font-size: 14px !important">{{contactDetails.primaryMobile2}}</span><span ng-if = "!contactDetails.emergencyContact2" style = "margin-top: -4px"></span></div>	
+					</div>
+				</div>
+			</div>
+			<div class="flex layout-column" style="padding: 0 8px;">
+ 					<div class="layout-row" layout-align = "space-between center">
+						<div class="layout-row layout-align-start-center" style="min-height: 30px;" >
+							<div class="layout-row layout-align-start-center merilytics-cursor-pointer" 
+							  ng-repeat="t in PersonalDetailsController.Tabs" 
+							  ng-click="PersonalDetailsController.changeTab(t.tabId,professionalDetailsForm)" 
+							  ng-class="{'selected-tab':t.tabId==selectedTab }">
+								<span style="padding: 16px"><span ng-class="{'selected-notificationNumbers':t.tabId==selectedTab,'unselected-notificationNumbers':t.tabId!=selectedTab}">{{$index+1}}</span><span>{{t.tabName}}</span></span>
+							</div>
+						</div>
+						<!-- <div class="layout-row layout-align-end-center">
+						<span><img ng-src="Assets\excel.png" style="height: 30px;padding: 0 8px"></span>
+						</div> -->
+						<div  class="layout-row layout-align-end-center">
+						<span ><img  ng-src="Assets\excel.png" style="max-height: 25px;padding: 0 8px; margin-bottom: 7px; cursor:pointer" ng-click = "PersonalDetailsController.exportToExcel($event,selectedEmployee )" ng-hide="disableDiv"><md-tooltip>Download Leave History</md-tooltip></span>						
+							<span class="layout-row layout-align-space-around-center new-button-screen" ng-click = "PersonalDetailsController.sendEmail($event, personalDetailsForm.$valid, professionalDetailsForm.$valid, contactDetailsForm.$valid)" > <span style = "padding-right : 10px">Send email to ER</span> <i class= "material-icons" style="font-size: 24px !important">email</i><md-tooltip>Send email to Employee Relations</md-tooltip></span>		
+						</div>
+					</div>
+					
+				<div flex style="background: white;" class="layout-column flex" ng-class="selectedTab==1 ? 'border-view1':'border-view'" >
+					<div ng-show="selectedTab==1" class="flex layout-column" style="padding: 0 16px;">
+							<form name="personalDetailsForm" class="flex layout-column">
+							<div class="flex layout-column" style="margin-top: 8px">
+									<div class="layout-gt-sm-row">
+										<!-- <div class="layout-column flex-gt-sm-30 flex-gt-xs-50 ">
+											<label>Employee ID</label>
+											<span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.employeeID ? personalDetails.employeeID :'-'}}</span>
+											<md-input-container >
+													<input type="text" ng-model="personalDetails.employeeID" name="employeeID" aria-label="Employee ID" ng-disabled="true" >
+											</md-input-container>
+										</div> -->
+										<!-- <div class="flex-5"></div> -->
+										<div class="layout-column flex-gt-sm-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>First Name <span style="color: red">*</span></label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.firstName ? personalDetails.firstName :'-'}}</span> -->
+											<md-input-container>
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="personalDetails.firstName" name="firstName" ng-disabled="!PersonalDetailsController.isEditMode" required aria-label="First name">
+													<div ng-messages="personalDetailsForm.firstName.$error">
+  			 											<div ng-message="required">First Name is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-sm-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Middle Name</label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.middleName ? personalDetails.middleName : '-' }}</span> -->
+											<md-input-container >
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="personalDetails.middleName" name="middleName" aria-label="Middle name" ng-disabled="!PersonalDetailsController.isEditMode">
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-sm-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Last Name</label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.lastName ? personalDetails.lastName : '-'}}</span> -->
+											<md-input-container >
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="personalDetails.lastName" name="lastName"  aria-label="Last name" ng-disabled="!PersonalDetailsController.isEditMode">
+											</md-input-container>
+										</div>										
+									</div>
+									<div class="layout-gt-sm-row">										
+										<div class="layout-column flex-gt-sm-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Short Name <span style="color: red">*</span></label></span>
+											<md-input-container>
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="personalDetails.shortName" name="shortName" ng-disabled="!PersonalDetailsController.isEditMode" required aria-label="Short name">
+													<div ng-messages="personalDetailsForm.shortName.$error">
+  			 											<div ng-message="required">Short Name is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<!-- <div class="layout-column flex-gt-sm-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>D.O.B <span style="color: red">*</span></label></span>
+											<span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.dob | date}}</span>
+											<md-input-container ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'">
+													<md-datepicker style = "max-height: 30px" id="customDatePickerHeight" ng-model="personalDetails.dob"  aria-label="Date Of Birth" required ng-disabled="!PersonalDetailsController.isEditMode"
+														  ng-model-options="{ timezone: 'utc' }" name="dob" required md-open-on-focus 
+														  md-hide-icons="calendar"  md-no-asterisk  md-placeholder='Date of Birth'>
+  			 										</md-datepicker>
+  			 										<div ng-messages="personalDetailsForm.dob.$error">
+  			 											<div ng-message="required"  style ="background: white !important">Date of Birth is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div> -->
+										<div class="layout-column flex-gt-sm-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Father Name</label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.fatherName ? personalDetails.fatherName:'-'}}</span> -->
+											<md-input-container >
+													<input type="text" ng-model="personalDetails.fatherName" name="fatherName" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" aria-label="Father name" ng-disabled="!PersonalDetailsController.isEditMode">
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>D.O.B <span style="color: red">*</span></label></span>											
+											<md-input-container style="max-height: 28px" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" >
+													<md-datepicker id="customDatePickerHeight" ng-model="personalDetails.dob" aria-label="Date Of Birth" required ng-disabled="!PersonalDetailsController.isEditMode"
+														  ng-model-options="{ timezone: 'utc' }" name="dob" required md-open-on-focus 
+														  md-hide-icons="calendar"  md-no-asterisk  md-placeholder='Date of Birth' md-max-date="maxDate">
+  			 										</md-datepicker>
+  			 										<div ng-messages="personalDetailsForm.dob.$error">
+  			 											<div ng-message="required">Date of Birth is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+									</div>
+									<div class="layout-gt-sm-row">
+										<!-- <div class="layout-column flex-gt-sm-30 flex-gt-xs-50 ">
+											<label>Gender</label>
+											<span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.gender ? personalDetails.gender :'-'}}</span>
+											<md-input-container >
+													<md-select ng-model="personalDetails.genderID" name="genderID" aria-label="Gender" ng-disabled="!PersonalDetailsController.isEditMode">
+														<md-option ng-repeat="gd in PersonalDetailsController.genderDetails" ng-value="gd.genderID">{{gd.gender}}</md-option>
+													</md-select>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div> -->
+										<div class="layout-column flex-gt-sm-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Gender</label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.gender ? personalDetails.gender :'-'}}</span> -->
+											<md-input-container>
+													<md-select ng-model="personalDetails.genderID" name="genderID" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" aria-label="Gender" ng-disabled="!PersonalDetailsController.isEditMode">
+														<md-option ng-repeat="gd in PersonalDetailsController.genderDetails track by $index" ng-value="gd.genderID">{{gd.gender}}</md-option>
+													</md-select>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<!-- <div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<label>Mobile<span style="color: red">*</span></label>
+											<span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.mobileNumber1}}</span>
+											<md-input-container>
+													<input type="text" ng-model="personalDetails.mobileNumber1" name="mobileNumber1" required ng-pattern="/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/" aria-label="Mobile" ng-disabled="!PersonalDetailsController.isEditMode">
+													<div ng-messages="personalDetailsForm.mobileNumber1.$error">
+  			 											<div ng-message="required">Mobile is required.</div>
+  			 											<div ng-message="minlength">min is required.</div>
+  			 											<div ng-message="maxlength">max is required.</div>
+  			 											<div ng-message="pattern">Enter valid number.</div>
+  			 										</div>
+											</md-input-container>
+										</div> -->
+										<div class="layout-column flex-gt-sm-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Mobile<span style="color: red">*</span></label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.dob | date}}</span> -->
+											<md-input-container style="backgrond:white !important;height: 30px;" >
+													<input type="text" ng-model="personalDetails.mobileNumber1" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" name="mobileNumber1" required ng-pattern="/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/" aria-label="Mobile" ng-disabled="!PersonalDetailsController.isEditMode">
+													<div ng-messages="personalDetailsForm.mobileNumber1.$error">
+  			 											<div ng-message="required">Mobile is required.</div>
+  			 											<div ng-message="minlength">min is required.</div>
+  			 											<div ng-message="maxlength">max is required.</div>
+  			 											<div ng-message="pattern">Enter valid number.</div>
+  			 								</div>  			 										
+											</md-input-container>
+											
+										</div>
+										<div class="flex-5"></div>
+											<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+												<span style = "max-height : 20px"><span><label>Blood Group</label></span></span>
+												<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.bloodGroup}}</span> -->
+												<md-input-container >
+														<md-select ng-model="personalDetails.bloodGroupID" name="bloodGroupID" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" aria-label="Blood Group" ng-change="personalDetails.bloodGroup = (PersonalDetailsController.bloodGroupDetails | filter:{bloodGroupID:personalDetails.bloodGroupID})[0].bloodGroup" ng-disabled="!PersonalDetailsController.isEditMode">
+															<md-option ng-repeat="bg in PersonalDetailsController.bloodGroupDetails track by $index" ng-value="bg.bloodGroupID">{{bg.bloodGroup}}</md-option>
+														</md-select>
+												</md-input-container>
+											</div>
+									</div>
+									<div class="layout-gt-sm-row">
+										<div class="layout-column flex-gt-sm-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Marital Status</label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.maritalStatusName}}</span> -->
+											<md-input-container aria-label="Martial Status" class="layout-row">
+													<md-radio-group ng-model="personalDetails.maritalStatus" class="layout-row" ng-disabled="!PersonalDetailsController.isEditMode" style = "padding-top: 5px">
+														      <md-radio-button ng-value= "false" >Single</md-radio-button>
+	      													  <md-radio-button ng-value= "true" > Married</md-radio-button>
+      												</md-radio-group>
+											</md-input-container>
+										</div>									
+									</div>
+									<!-- <div class="layout-gt-sm-row">
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<label>Blood Group</label>
+											<span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{personalDetails.bloodGroup}}</span>
+											<md-input-container >
+													<md-select ng-model="personalDetails.bloodGroupID" name="bloodGroupID" aria-label="Blood Group" ng-change="personalDetails.bloodGroup = (PersonalDetailsController.bloodGroupDetails | filter:{bloodGroupID:personalDetails.bloodGroupID})[0].bloodGroup" ng-disabled="!PersonalDetailsController.isEditMode">
+														<md-option ng-repeat="bg in PersonalDetailsController.bloodGroupDetails" ng-value="bg.bloodGroupID">{{bg.bloodGroup}}</md-option>
+													</md-select>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											
+										</div>
+										
+									</div> -->
+							</div>
+							<div class="layout-row layout-align-end-center">
+								<md-button class="merilytics-green-button" ng-show="PersonalDetailsController.isEditMode"  ng-disabled="personalDetailsForm.$invalid" ng-click="PersonalDetailsController.SaveOrUpdate($event,'personaldetails')" >Save</md-button>
+								<md-button class="merilytics-puple-button" ng-click="PersonalDetailsController.changeTab(2)">Next</md-button>
+							</div>
+						</form>
+					</div>
+					
+					<div ng-show="selectedTab==2" class="flex layout-column" style="padding: 0 16px;">
+						<form name="professionalDetailsForm" class="flex layout-column">
+						<div class="flex layout-column" style="margin-top: 8px">
+									<div class="layout-gt-md-row">
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Email ID <span style="color: red">*</span></label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{professionalDetails.email}}</span> -->
+											<md-input-container >
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="professionalDetails.email" required name="email" aria-label="Email" ng-disabled="!PersonalDetailsController.isEditMode">
+													<div ng-messages="professionalDetailsForm.email.$error">
+  			 											<div ng-message="required">Email is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<!-- <label>D.O.J<span style="color: red">*</span></label> -->
+											<span style = "max-height : 20px"><label>D.O.J<span style="color: red">*</span></label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{professionalDetails.doj | date}}</span> -->
+											<md-input-container style="max-height: 28px;" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" >
+													<md-datepicker id="customDatePickerHeight" ng-model="professionalDetails.doj" aria-label="Date Of Joining" required ng-disabled="!PersonalDetailsController.isEditMode"
+														  ng-model-options="{ timezone: 'utc' }" name="doj" required md-open-on-focus 
+														  md-hide-icons="calendar"  md-no-asterisk  md-placeholder='Date of Joining'>
+  			 										</md-datepicker>
+  			 										<div ng-messages="professionalDetailsForm.doj.$error">
+  			 											<div ng-message="required">Date of Joining is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Reporting Manager<span style="color: red" ng-show="{{selectedEmployee.employeeID != 21100}}">*</span></label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{professionalDetails.managerName}}</span> -->
+											<md-input-container flex="50" md-no-float>
+										          <md-select name="recordAgainst" md-on-close="searchEmployee = undefined"  ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'"md-no-asterisk  ng-model="professionalDetails.managerID"" ng-required="{{selectedEmployee.employeeID != 21100}}" ng-disabled="!PersonalDetailsController.isEditMode || {{selectedEmployee.employeeID == 21100}}" data-md-container-class="selectdemoSelectHeader">
+										          
+										          <md-select-header class="demo-select-header">
+            <input ng-model="searchEmployee"
+                   type="search"
+                   placeholder="Search Employee"
+                   ng-keydown="PersonalDetailsController.stopPropagation($event)"
+                   class="demo-header-searchbox md-text">
+          </md-select-header>
+											      
+											       
+											        <md-optgroup label="recordAgainst">
+											         <md-option ng-value="::employee.employeeID" ng-repeat="employee in PersonalDetailsController.employeesData  | filter:searchEmployee track by employee.employeeID" ng-disabled="{{selectedEmployee.employeeID == employee.employeeID}}">{{employee.employeeName}}</md-option>
+											        </md-optgroup> 
+											       </md-select>
+											       <div ng-messages="professionalDetailsForm.recordAgainst.$error">
+  			 											<div ng-message="required">Reporting Manager is required.</div>
+  			 										</div>
+										     </md-input-container>
+										</div>
+									</div>
+									<div class="layout-gt-md-row">
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Domain <span style="color: red">*</span></label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{professionalDetails.domainName}}</span> -->
+											<md-input-container  md-no-float>
+													<md-select ng-model="professionalDetails.domainID" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" name="domainID" required ng-change="PersonalDetailsController.DomainChange(professionalDetails.domainID)" ng-disabled="!PersonalDetailsController.isEditMode"
+																md-no-asterisk aria-label="Domain">
+														<md-option ng-repeat="d in PersonalDetailsController.domainDetails track by $index" ng-value="d.domainID">{{d.domainName}}</md-option>
+													</md-select>
+													<div ng-messages="professionalDetailsForm.domainID.$error">
+  			 											<div ng-message="required">Domain is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Designation <span style="color: red">*</span></label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{professionalDetails.designation}}</span> -->
+											<md-input-container >
+													<md-select ng-model="professionalDetails.designationID" name="designationID"  ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-change="professionalDetails.designation = (PersonalDetailsController.designationDetails | filter:{designationID:professionalDetails.designationID})[0].designation" ng-disabled="(!PersonalDetailsController.isEditMode || (professionalDetails.domainID == null))"
+																required md-no-asterisk aria-label="Designation" >
+														 <md-option ng-repeat="desig in PersonalDetailsController.designationDetails track by desig.designationID" ng-value="desig.designationID">{{desig.designation}}</md-option> 
+													</md-select>
+											
+													<div ng-messages="professionalDetailsForm.designationID.$error">
+  			 											<div ng-message="required">Designation is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+									
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Role <span style="color: red">*</span></label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{professionalDetails.roleName}}</span> -->
+											<md-input-container style="backgrond:white !important;height: 30px;" >
+												<md-select ng-model="professionalDetails.roleID" name="roleID" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" md-no-asterisk required aria-label="Role" ng-disabled="!PersonalDetailsController.isEditMode">
+														<md-option ng-repeat="rd in PersonalDetailsController.roleDetails track by $index" ng-value="rd.roleID">{{rd.roleName}}</md-option>
+												</md-select>
+												<div ng-messages="professionalDetailsForm.roleID.$error">
+  			 											<div ng-message="required">Role is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+									</div>
+									<div class="layout-gt-md-row">
+									<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Country Name <span style="color: red">*</span></label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{professionalDetails.workLocation}}</span> -->
+											<md-input-container >
+													<md-select ng-model="professionalDetails.countryPkID" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'"name="workLocationID" ng-change="PersonalDetailsController.countryChange(professionalDetails.countryPkID)" 
+																md-no-asterisk required aria-label="Location" ng-disabled="!PersonalDetailsController.isEditMode">
+														<md-option ng-repeat="ld in PersonalDetailsController.CountryDetails track by $index" ng-value="ld.countryPkID">{{ld.countryName}}</md-option>
+													</md-select>
+													<div ng-messages="professionalDetailsForm.workLocationID.$error">
+  			 											<div ng-message="required">Work Location is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Location <span style="color: red">*</span></label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{professionalDetails.workLocation}}</span> -->
+											<md-input-container >
+													<md-select ng-model="professionalDetails.workLocationID" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'"name="workLocationID" 
+																md-no-asterisk required aria-label="Location" ng-disabled="!PersonalDetailsController.isEditMode">
+														<md-option ng-repeat="ld in PersonalDetailsController.LocationDetails track by ld.workLocationID" ng-value="ld.workLocationID">{{ld.workLocation}}</md-option>
+													</md-select>
+													<div ng-messages="professionalDetailsForm.workLocationID.$error">
+  			 											<div ng-message="required">Work Location is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										
+										<div class="flex-5 "></div>
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50 ">
+											<span style = "max-height : 20px"><label>Employment Type<span style="color: red">*</span></label></span>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{professionalDetails.employementStatus}}</span> -->
+											<md-input-container>
+													<md-select ng-model="professionalDetails.employmentStatusID" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" name="employmentStatusID" 
+													  ng-change="professionalDetails.employementStatus = (PersonalDetailsController.employeementStatus | filter:{employmentStatusID:professionalDetails.employmentStatusID})[0].employementStatus;PersonalDetailsController.changeStatus(professionalDetails)" 
+													  md-no-asterisk required aria-label="Employee Type" ng-disabled="!PersonalDetailsController.isEditMode">
+														<md-option ng-repeat="es in PersonalDetailsController.employeementStatus track by $index" ng-value="es.employmentStatusID">{{es.employementStatus}}</md-option>
+													</md-select>
+													<div ng-messages="professionalDetailsForm.employmentStatusID.$error">
+  			 											<div ng-message="required">Employee Type is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										
+										<!-- <div class="layout-column flex-gt-md-30 flex-gt-xs-50 " layout-align = "center center">
+											<md-button ng-click = "PersonalDetailsController.changeAppsAccessible()">Apps<md-tooltip>Change the apps accessable to the emp</md-tooltip></md-button>
+											<span style = "margin-top: 10px" class="layout-row layout-align-space-around-center new-button-screen" ng-click = "PersonalDetailsController.changeAppsAccessible()"><span>Set apps accessible</span><md-tooltip>Set apps accessible to the employee</md-tooltip></span>
+										</div> -->
+
+									</div>
+									<div class="layout-gt-md-row">
+										<md-table-container style="min-height:200px" class="employees-table">
+											<table md-table style="background: #f5f5f5;border-radius: 10px;">
+												<thead md-head>
+													<tr md-row>
+														<th md-column>Employment Type</th>
+														<th md-column>Start Date</th>
+														<th md-column>End Date</th>
+														<th md-column style="min-width:50px !important;max-width: 50px !important" ng-show="PersonalDetailsController.isEditMode"><i class="material-icons merilytics-cursor-pointer" ng-click="PersonalDetailsController.ClickAddModifyStatus($event,[])" 
+																		 style="background: #95Af28;color: whitesmoke;font-size: 24px !important;border: 2px solid white;border-radius: 50%;">
+																<md-tooltip>Add New</md-tooltip>add</i>
+														</th>
+													</tr>
+												</thead>
+												<tbody md-body style="height: 150px">
+													<!-- <tr ng-show="professionalDetails_grid.length==0"><td> No details to show</td></tr> -->
+													<tr ng-show="professionalDetails_grid.length>=0" md-row ng-repeat="pg in professionalDetails_grid"  >
+														<td md-cell>{{pg.employmentTypeName}}</td>
+														<td md-cell>{{pg.startDate |date}}</td>
+														<td md-cell>{{pg.endDate |date}}</td>
+														<td md-cell style="min-width:50px !important;max-width: 50px !important" ng-show="PersonalDetailsController.isEditMode && pg.employmentTypeID>0">
+															<div style="background-color: transparent;color:#95AF28" class="layout-row" >
+																			<div ng-click="PersonalDetailsController.ClickAddModifyStatus($event,pg)">
+																				<i class="material-icons merilytics-cursor-pointer" style="font-size: 24px !important;"><md-tooltip>Edit</md-tooltip>mode_edit</i>
+																			</div>
+																			<div ng-click="PersonalDetailsController.DeleteEmployementType($event,pg)">
+																				<i class="material-icons merilytics-cursor-pointer" style="font-size: 24px !important;"><md-tooltip>Delete</md-tooltip>delete</i>
+																			</div>
+															</div>
+															<!-- <md-menu md-position-mode="target-right bottom" style="margin: 0 !important;" md-offset="1 5">
+																<md-button aria-label="User Profile Menu" class="md-icon-button" style="padding: 0" ng-click="$mdOpenMenu($event)">
+																	<i class="material-icons">storage</i>
+																</md-button>
+																<md-menu-content width="4" class="ProfileContent">
+																	<md-menu-item class="ProfileMenu" ng-show="!ed.isActive" style="cursor:pointer" >
+																		<div style="background-color: transparent;">
+																			
+																		</div>
+																	</md-menu-item>
+																	<md-menu-item class="ProfileMenu" ng-show="ed.isActive" style="cursor:pointer" >
+																		<div style="background-color: transparent;">
+																			<i class="material-icons merilytics-cursor-pointer">delete</i>
+																		</div>
+																	</md-menu-item>
+																</md-menu-content>
+															</md-menu> -->
+														</td>
+													</tr>
+												</tbody>
+											</table>	
+										</md-table-container>
+										<div class="flex-5"></div>
+										<div class="layout-align-end-center">
+    										<span>
+												<md-checkbox ng-model="professionalDetails.hasNDASigned" ng-disabled="!PersonalDetailsController.isEditMode" aria-label="professionalDetails.hasNDASigned">
+	            								<span style = "color: #626262 !important;">NDA Signed</span>
+	            								<!-- &nbsp;<span ng-style="{ 'color' : professionalDetails.hasNDASigned ? '#95af28' : '#383085' }">{{professionalDetails.hasNDASigned?  'Signed' : 'Not Signed'}} &nbsp;&nbsp;&nbsp;</span> -->
+	            								</md-checkbox>
+											</span>
+										</div>
+								</div>
+							</div>
+							<div class="layout-row layout-align-end-center">
+								<md-button class="merilytics-puple-button" ng-click="PersonalDetailsController.changeTab(1)">Back</md-button>
+								<md-button class="merilytics-green-button" type="submit" ng-show="PersonalDetailsController.isEditMode" ng-disabled="professionalDetailsForm.$invalid" ng-click="PersonalDetailsController.SaveOrUpdate($event,'professionaldetails')" >Save</md-button>
+								<md-button class="merilytics-puple-button" ng-click="PersonalDetailsController.changeTab(3)">Next</md-button>
+							</div>
+						</form>
+					</div>
+					<div ng-show="selectedTab==3" class="flex layout-column" style="padding: 0 16px;">
+						<form name="contactDetailsForm" class="flex layout-column">
+						<div class="flex layout-column">
+									<div class="layout-gt-md-row" style="margin-top: 8px">
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50">
+											<label>Current Address</label>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" style="min-height: 135px">{{contactDetails.currentAddress}}</span> -->
+											<md-input-container >
+													<textarea ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="contactDetails.currentAddress" name="currentAddress"  md-select-on-focus  ng-disabled="!PersonalDetailsController.isEditMode"></textarea>
+													<!-- <div ng-messages="contactDetailsForm.currentAddress.$error">
+  			 											<div ng-message="required">Current Address is required.</div>
+  			 										</div> -->
+											</md-input-container>
+										</div>
+										<div class="layout-column layout-align-center-center flex-20">
+											<div class="layout-column layout-align-center-center">
+												<md-checkbox ng-model="sameAddr" ng-change="PersonalDetailsController.clickSameAsAbove(sameAddr)" ng-disabled="!PersonalDetailsController.isEditMode">
+	                							</md-checkbox> Same as Current
+                							</div>
+										</div>
+										<div class="layout-column flex-gt-md-30 flex-gt-xs-50">
+											<label>Permanent Address <span style="color: red">*</span></label>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" style="min-height: 135px">{{contactDetails.permanentAddress}}</span> -->
+											<!-- <div ng-show="PersonalDetailsController.isEditMode"><md-checkbox></md-checkbox> Same as above</div> -->
+											<md-input-container>
+													<textarea ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="contactDetails.permanentAddress" name="permanentAddress" md-select-on-focus required ng-disabled="!PersonalDetailsController.isEditMode||sameAddr"></textarea>
+													<div ng-messages="contactDetailsForm.permanentAddress.$error">
+  			 											<div ng-message="required">Permanent Address is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+									</div>
+									<div class="layout-gt-md-row">
+										<div class="layout-column flex-gt-md-20 flex-gt-xs-50">
+											<label>Emergency Contact 1<span style="color: red">*</span></label>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{contactDetails.emergencyContact1}}</span> -->
+											<md-input-container>
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="contactDetails.emergencyContact1" name="emergencyContact1" required ng-disabled="!PersonalDetailsController.isEditMode">
+													<div ng-messages="contactDetailsForm.emergencyContact1.$error">
+  			 											<div ng-message="required">Emergency Contact 1 is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-20 flex-gt-xs-50">
+											<label>Relation with Contact<span style="color: red">*</span></label>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{contactDetails.relationWithContact1}}</span> -->
+											<md-input-container>
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="contactDetails.relationWithContact1" name="relationWithContact1" required ng-disabled="!PersonalDetailsController.isEditMode">
+													<div ng-messages="contactDetailsForm.relationWithContact1.$error">
+  			 											<div ng-message="required">Relation With Contact 1 is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5 "></div>
+										<div class="layout-column flex-gt-md-20 flex-gt-xs-50">
+											<label>Primary Mobile 1 <span style="color: red">*</span></label>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{contactDetails.primaryMobile1}}</span> -->
+											<md-input-container>
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="contactDetails.primaryMobile1" name="primaryMobile1" required ng-pattern="/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/" ng-disabled="!PersonalDetailsController.isEditMode">
+													<div ng-messages="contactDetailsForm.primaryMobile1.$error">
+  			 											<div ng-message="required">Primary Mobile 1 is required.</div>
+  			 											<div ng-message="minlength">min is required.</div>
+  			 											<div ng-message="maxlength">max is required.</div>
+  			 											<div ng-message="pattern">Enter valid number.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-20 flex-gt-xs-50">
+											<label>Primary Email</label>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{contactDetails.primaryEmail1}}</span> -->
+											<md-input-container>
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="contactDetails.primaryEmail1" name="primaryEmail1" ng-disabled="!PersonalDetailsController.isEditMode">
+													<div ng-messages="contactDetailsForm.primaryEmail1.$error">
+  			 											<div ng-message="required">Primary Email is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+									</div>
+									<div class="layout-row">
+										<div class="layout-column flex-gt-md-20 flex-gt-xs-50">
+											<label>Emergency Contact 2<span style="color: red">*</span></label>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{contactDetails.emergencyContact2}}</span> -->
+											<md-input-container>
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="contactDetails.emergencyContact2" name="emergencyContact2" required ng-disabled="!PersonalDetailsController.isEditMode">
+													<div ng-messages="contactDetailsForm.emergencyContact2.$error">
+  			 											<div ng-message="required">Emergency Contact 2 is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-20 flex-gt-xs-50">
+											<label>Relation with Contact<span style="color: red">*</span></label>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{contactDetails.relationWithContact2}}</span> -->
+											<md-input-container >
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="contactDetails.relationWithContact2" name="relationWithContact2" required ng-disabled="!PersonalDetailsController.isEditMode">
+													<div ng-messages="contactDetailsForm.relationWithContact2.$error">
+  			 											<div ng-message="required">Relation with Contact 2 is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-20 flex-gt-xs-50">
+											<label>Primary Mobile 2 <span style="color: red">*</span></label>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{contactDetails.primaryMobile2}}</span> -->
+											<md-input-container>
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="contactDetails.primaryMobile2" name="primaryMobile2" required  ng-pattern="/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/" ng-disabled="!PersonalDetailsController.isEditMode">
+													<div ng-messages="contactDetailsForm.primaryMobile2.$error">
+  			 											<div ng-message="required">Primary Mobile 2 is required.</div>
+  			 											<div ng-message="minlength">min is required.</div>
+  			 											<div ng-message="maxlength">max is required.</div>
+  			 											<div ng-message="pattern">Enter valid number.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+										<div class="flex-5"></div>
+										<div class="layout-column flex-gt-md-20 flex-gt-xs-50">
+											<label>Primary Email 2</label>
+											<!-- <span ng-show="!PersonalDetailsController.isEditMode" class="unSaved-span">{{contactDetails.primaryEmail2}}</span> -->
+											<md-input-container>
+													<input type="text" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" ng-model="contactDetails.primaryEmail2" name="primaryEmail2" ng-disabled="!PersonalDetailsController.isEditMode" >
+													<div ng-messages="contactDetailsForm.primaryEmail2.$error">
+  			 											<div ng-message="required">Primary Email 2 is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+									</div>
+							</div>
+							<div class="layout-row layout-align-end-center">
+								<md-button class="merilytics-puple-button" ng-click="PersonalDetailsController.changeTab(2)">Back</md-button>
+								<md-button class="merilytics-green-button" ng-show="PersonalDetailsController.isEditMode" ng-click="PersonalDetailsController.SaveOrUpdate($event,'contactdetails')" ng-disabled="contactDetailsForm.$invalid" >Save</md-button>
+								<md-button class="merilytics-puple-button" ng-click="PersonalDetailsController.changeTab(4)"">Next</md-button>
+							</div>
+						</form>
+					</div>
+					
+					<div ng-show = "selectedTab ==4" flex class = "layout-column" style = "padding: 0 16px">					  
+						<div flex layout = "column">
+							<div layout= "row" layout-align = "end center" style = "max-height: 45px">
+								<span style = "margin-top: 10px" class="layout-row layout-align-space-around-center new-button-screen" ng-click = "PersonalDetailsController.resetPassword()"><span>Reset password</span><md-tooltip>Reset password</md-tooltip></span>												
+							</div>
+							<div flex="90" layout= "column" layout-align="center center" style = "margin: 10px 0px;">
+								<div layout= "row" layout-wrap style = "overflow-y : auto; max-height: 100%">
+									<div style = "margin: 10px 20px" layout="column"  ng-repeat="application in PersonalDetailsController.items" layout="row" layout-align="center center">	    
+							     		<!-- <span class="applicationBox" layout="column" layout-align="center center"  ng-click="PersonalDetailsController.toggle(application)" ng-class= "(application.isSelected == true)? 'selectedBox':''">
+							      			<img style = "max-height: 60px; max-width: 50px"ng-src="Assets/{{::application.logo}}"/><md-tooltip>{{application.tooltip}}</md-tooltip> 
+							     		</span> -->
+							     		<span class="applicationBox" layout="column" ng-click="PersonalDetailsController.toggle(application)" ng-class= "(application.isSelected == true)? 'selectedBox':''">
+		  									<span layout = "column" layout-align = "end end" ng-show = "application.isSelected == true"><img  style = "max-height: 20px; max-width: 20px" ng-src= "Assets/round-chk-d-gray.svg"></span>
+	      									<span flex layout= "column" layout-align="center center"><img style = "max-height: 60px; max-width: 50px" ng-src="Assets/{{::application.logo}}"/><md-tooltip md-direction="top">{{application.tooltip}}</md-tooltip></span> 
+	     								</span>
+							     		<span ng-bind="::application.applicationName"></span>							   
+							   		</div>
+								</div>							
+							</div>												
+						</div>
+						<div class="layout-row layout-align-end-end">
+							<md-button class="md-raised" style="background-color:#95af28; color:white;" ng-click = "PersonalDetailsController.submitAppsList()">Save</md-button>
+							<md-button class="merilytics-puple-button" ng-click="PersonalDetailsController.changeTab(3)">Back</md-button>							
+							<md-button class="merilytics-puple-button" ng-click="PersonalDetailsController.changeState('Home.IndividualEmployee.FinancialDetails')">Next</md-button>							
+						</div>						
+					</div>
+						
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/ng-template" id="AddModifyStatus.html">
+
+	<md-dialog style="height: auto; width: 60%;">
+			<md-toolbar style="background:white;color:black" class="layout-row layout-align-space-between-center layout-padding">
+				<div class="layout-row layout-align-start-center">Employement Status Form</div>
+				<div>
+					<md-button class="md-icon-button" ng-click="closeView()">
+						<md-tooltip>Close</md-tooltip>
+						<img ng-src="Assets\close.png" />
+					</md-button>
+				</div>
+			</md-toolbar>
+		<md-dialog-content>
+			<form name="StatusForm" class="layout-column layout-padding">
+					<div class="layout-row">
+					<div class="layout-column flex-30">
+						<label>Employee Type <span style="color: red">*</span></label>
+						<md-input-container>
+								<md-select ng-disabled = "editing" style = "margin-top: -3px; max-height : 30px !important;box-shadow: inset 0px 2px 2px 0px #ddd !important;" ng-model="status.employmentTypeID" name="employmentTypeID" md-no-asterisk required aria-label="Employee Type" ng-change="PersonalDetailsController.changeEmployeeTypefunction(StatusForm,status.employmentTypeID)">
+									<md-option ng-repeat="es in PersonalDetailsController.employeementTypeList" ng-value="es.employmentTypeID">{{es.employmentType}}</md-option>
+								</md-select>
+								<div ng-messages="StatusForm.employmentTypeID.$error">
+ 											<div ng-message="required">Employee Type is required.</div>
+											<div ng-message="alreadyExist">Employee Type already selected</div>
+ 								</div>
+						</md-input-container>
+					</div>
+					<div class="flex-5"></div>
+					<div class="layout-column flex-30">
+						<label>Start Date</label>							
+							<md-input-container style="height: 30px;" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" >
+								<md-datepicker id="customDatePickerHeight" ng-model="status.startDate" aria-label="Start Date" required
+								  ng-model-options="{ timezone: 'utc' }" name="startDate" md-open-on-focus 
+								  md-hide-icons="calendar"  md-no-asterisk  md-placeholder='Start Date' md-max-date="status.endDate">
+  			 					</md-datepicker>					
+  			 					<div ng-messages="StatusForm.startDate.$error">
+  			 						<div ng-message="required">Start Date is required.</div>
+  			 					</div>					
+							</md-input-container>
+							
+					</div>
+					<div class="flex-5"></div>
+					<div class="layout-column flex-30">
+						<label>End Date </label>							
+							<md-input-container style="height: 30px;" ng-class = "PersonalDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" >
+								<md-datepicker id="customDatePickerHeight" ng-model="status.endDate" aria-label="End Date" required
+								  ng-model-options="{ timezone: 'utc' }" name="endDate" md-min-date="status.startDate" md-open-on-focus 
+								  md-hide-icons="calendar"  md-no-asterisk  md-placeholder='End Date'>
+  			 					</md-datepicker>					
+  			 					<div ng-messages="StatusForm.endDate.$error">
+  			 						<div ng-message="required">End Date is required.</div>
+  			 					</div>					
+							</md-input-container>
+								
+							
+					</div>
+					</div>
+			</form>
+    <md-card-actions layout="row" layout-align="end center" style="background: white">
+	 <md-button class="md-raised" style="background-color:#95af28; color:white; margin-bottom: 40px;" ng-disabled="StatusForm.$invalid" ng-click="PersonalDetailsController.AddModifyStatus($event,StatusForm,status)">Add</md-button>
+    </md-card-actions>
+		</md-dialog-content>
+	</md-dialog>
+</script>
+<script type="text/ng-template" id="UploadImage.html">
+
+	<md-dialog style="height: auto; width: 40%;">
+			<md-toolbar style="background:white;color:black" class="layout-row layout-align-space-between-center layout-padding">
+				<div class="layout-row layout-align-start-center">Upload Image</div>
+				<div>
+					<md-button class="md-icon-button" ng-click="closeView()">
+						<md-tooltip>Close</md-tooltip>
+						<img ng-src="Assets\close.png" />
+					</md-button>
+				</div>
+			</md-toolbar>
+		<md-dialog-content layout-padding >
+				<div layout-align="center center" layout="column">
+
+<span style="position:relative">
+<img style="background: gray;min-height: 200px;border-radius: 50%;opacity:0.5" ng-if="imagewithbase64 == null" src="Assets\profile-img.svg" layout-margin>
+<img style="background: white;max-height: 200px;min-height:200px;max-width:200px;border-radius: 50%" src="{{imagewithbase64}}" data-err-src="Assets\profile-img.svg" layout-margin>
+<img  style="position: absolute;height: 30px;background: #95AF28;padding: 5px;border-radius: 40%;top: 60%;right: 7%;cursor:pointer" src="Assets\upload_image.svg" alt="upload image" ng-click="PersonalDetailsController.selectFile()">
+<span>
+				
+<input type="file" id="uploadprofilepicture" style="display:none" accept="image/*" onchange="angular.element(this).scope().fileNameChanged(this.files)"  ng-model="imagewithbase64"/> 
+
+
+
+
+
+
+			
+    <md-card-actions layout="row" layout-align="center center" style="background: white">
+	 <md-button class="md-raised" style="background-color:#95af28; color:white;" ng-click = "PersonalDetailsController.saveProfilePicture()">Save</md-button>
+    </md-card-actions>
+</div>
+		</md-dialog-content>
+	</md-dialog>
+</script>
+<script type="text/ng-template" id="appsCheck.html">
+
+	<md-dialog style="height: auto; width: 60%;">
+			<md-toolbar style="background:white;color:black" class="layout-row layout-align-space-between-center layout-padding">
+				<div class="layout-row layout-align-start-center">Apps accessible to the employee</div>
+				<div>
+					<md-button class="md-icon-button" ng-click="closeView()">
+						<md-tooltip>Close</md-tooltip>
+						<img ng-src="Assets\close.png" />
+					</md-button>
+				</div>
+			</md-toolbar>
+		<md-dialog-content layout-padding>
+				
+				
+
+<div flex layout="column" layout-align="center center">
+	  <div flex layout="row" layout-align="center center">
+	   <div style = "margin: 0 30px" layout="column" layout-align="center center" ng-repeat="application in PersonalDetailsController.items" layout="row" layout-align="center center">	    
+	     <span class="applicationBox" layout="column" ng-click="PersonalDetailsController.toggle(application)" ng-class= "(application.isSelected == true)? 'selectedBox':''">
+		  <img layout = "row" layout-align = "end end" style = "max-height: 20px; max-width: 20px" ng-show = "application.isSelected == true" ng-src= "Assets/round-chk-d-gray.svg">
+	      <img layout= "row" layout-align="center center" style = "max-height: 60px; max-width: 50px" ng-src="Assets/{{::application.logo}}"/><md-tooltip>{{application.tooltip}}</md-tooltip> 
+	     </span>
+	     <span ng-bind="::application.applicationName"></span>
+	   
+	   </div>
+	  </div>
+</div>	
+			
+    <md-card-actions layout="row" layout-align="end center" style="background: white">
+	 <md-button class="md-raised" style="background-color:#95af28; color:white;" ng-click = "PersonalDetailsController.submitAppsList()">Save</md-button>
+    </md-card-actions>
+		</md-dialog-content>
+	</md-dialog>
+</script>
+
+
+<style>
+	
+	.selected-tab{
+		background: white;
+		color: #95Af28;
+		margin-top: 5px;
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+	}
+	.merilytics-header{
+		font-size: 16px !important
+	}
+	.md-select-value{
+	/* 	min-width: 180px; */
+		min-height: 30px;
+		/* background: #ddd !important; */
+		border-radius: 8px !important;
+		border : none !important;
+	}
+	md-select:not([disabled]):focus .md-select-value{
+	border-bottom-color: white !important;
+	}
+	.selected-notificationNumbers {
+		background-color: #95AF28;
+		border-radius: 50px;
+		align-self: baseline;
+		padding: 0px 5px;
+		margin-right: 4px;
+		margin-top: 4px;
+		color: white;
+	}
+	.unselected-notificationNumbers {
+		background-color: #626262;
+		border-radius: 50px;
+		align-self: baseline;
+		padding: 0px 5px;
+		margin-right: 4px;
+		margin-top: 4px;
+		color: white;
+	}
+	.border-view{
+		border-radius: 10px
+	}
+	.border-view1{
+		border-top-right-radius: 10px;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+	textarea{
+		height: 60px;
+		/* background: #ddd; */
+		border-radius: 8px;
+		box-shadow: 0 0 23px 0 #ddd;
+		border: 1px solid #ddd;
+		border : 1px solid #ddd !important;
+	}
+	md-checkbox{
+		margin-bottom:0 !important
+	}
+	
+.customDatePickerHeight > div > input {
+   height: 35px !important;
+}
+.personal-details-label{
+	font-size: 14px !important;
+	color:#626262 !important;
+	font-weight: unset !important;
+}
+
+ .employees-table table tbody, table thead { display: block !important; } 
+ .employees-table table tbody { overflow: auto !important; width: 103% !important; }
+ md-table-container > table > thead > tr > th {
+    min-width: 200px !important;
+    max-width: 200px !important;
+    word-wrap: normal !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+}
+ td.md-cell, th.md-column{
+	min-width: 205px !important;
+}
+table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2){
+	min-width: 200px !important;
+	max-width: 200px !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap;	
+}
+.employees-table thead {
+    text-align: left !important;
+    border-bottom: 1px solid #95AF28;
+}
+table.md-table th.md-column{
+	color: #95AF28 !important;
+}
+table.md-table td.md-cell{
+	border-top: 0 rgba(0, 0, 0, 0.12) solid !important;
+}
+td.md-cell{
+	border-bottom:1px solid #626262;
+}
+
+.InputEditMode{
+	background : #ededed !important;
+	padding-left: 4px;
+	box-shadow: inset 0px 2px 2px 0px #ccc !important;
+}
+.InputViewMode{
+	background : #f5f5f5 !important;
+	border : 1px solid #ddd !important;
+}
+.InputViewMode .md-select-value .md-select-icon {
+	display :none !important;
+}
+ input, md-select {
+	background: #ededed;	
+	padding-left : 4px !important;	
+	/* box-shadow: inset 0px 2px 2px 0px #ddd !important;	   */
+}
+md-input-container > md-select{
+	max-height : 28px !important;
+}
+.md-select-value{
+	align-items : unset !important;
+	-webkit-align-items : unset !important;
+}
+.md-select-value .md-select-icon::after {
+	top : 6px !important;
+}
+
+
+.applicationBox {
+    width: 140px;
+    height: 140px;
+    border-radius: 10px;
+    margin: 0px;
+    font-weight: bold;
+    font-size: 25px;
+    border: 2px solid #e4e4e4;
+    background-color: white;
+    cursor: pointer;
+}
+
+.selectedBox {
+	/* background-color: rgba(153, 178, 48, 0.3) !important; */
+	border: 2px solid #99b230 !important;
+}
+
+.disableSpan{
+	opacity : 0.9;
+	cursor: default;
+	background: #9a97b7 !important;
+}
+
+.selectdemoSelectHeader .demo-header-searchbox {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0; 
+    background-color:white;
+    }
+.selectdemoSelectHeader .demo-select-header {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+    padding-left: 10.667px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: auto; 
+    }
+    .new-button-screen {
+    	min-width : 170px;
+    }
+
+</style>

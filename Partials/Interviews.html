@@ -1,0 +1,499 @@
+<!--  <div layout="column" layout-fill layout-padding flex style="background:white;border-radius: 10px;">
+	<div class="layout-column flex" style="background: #eaeaea;border-radius: 10px">
+		<div style="min-height: 50px" class="layout-row">
+			<div class="layout-row flex-xs-50 flex-gt-xs-45 flex-gt-sm-25 flex-25 layout-align-start-center">
+				<span><img ng-src="Assets\\interview_black.svg" style="height: 40px;padding: 0 8px"></span>
+				<span class="view-header">Interview Details</span>
+				<span><i class="material-icons merilytics-cursor-pointer" style="font-size: 24px !important;margin-left: 16px;" ng-click="InterviewsController.ChangeEditMode()"><md-tooltip>Edit</md-tooltip>mode_edit</i></span>
+			</div>
+			<div class="flex layout-column" style="background: white;margin-right: -8px;margin-top: -8px;">
+				<div class="cutCorner"></div>
+			</div>
+			<div class="flex-80 layout-align-center-end layout-column" style="background: white;margin-left: 8px;margin-top: -8px;margin-right: -8px;">
+				<span style="color: #626262 !important"> 
+						<span class="hide-sm hide-xs">Employee Name & ID : &nbsp;&nbsp;&nbsp;&nbsp;</span> 
+						<span class="hide-xs" style="color: #626262 !important;font-weight: bold;" ng-show="selectedEmployee.employeeID>0">{{selectedEmployee.employeeName}} &nbsp;&nbsp;  [ &nbsp; {{selectedEmployee.employeeID}} &nbsp; ]</span>
+				</span>
+			</div>
+		</div>
+		<div class="layout-column flex" style="padding: 0 8px;"> 
+			<div class="layout-row" style="padding: 0 10px;">
+				<span class="layout-row layout-align-space-around-center new-button-hidden-screen"> 
+					<span></span><i class= "material-icons" style="font-size: 24px !important;color:#eaeaea;">add_circle_outline</i></span>				
+			</div>
+			{{InterviewsController.selectedDomain}}
+			<form flex name = "InterviewForm" style= "background-color: white; border-radius: 10px">			
+			<div layout= "row" layout-align="center center" style= "min-height:80%;text-shadow: 1px 1px rgb(216, 216, 216)">Please select the domain</div>
+	    <div flex layout="column" style = "padding: 20px">           
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">DI Test Score<span style= "color:red">*</span></div> 
+                <div><b>:</b></div>
+                <md-input-container  class="md-block">
+                    <textarea ng-model="InterviewsController.data.quntitative1" name="quantitative1"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+                    <div ng-messages="InterviewForm.quantitative1.$error">
+                       <div ng-message="required">Quantitative1 is required.</div>
+                    </div>
+                </md-input-container>                
+            </div>
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">PST Test Score<span style= "color:red">*</span></div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea ng-model="InterviewsController.data.quntitative2" name="quantitative2"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled= "InterviewsController.edit == false" required></textarea>
+                    <div ng-messages="InterviewForm.quantitative2.$error">
+                        <div ng-message="required">Quantitative2 is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Group Discussion Comments<span style= "color:red">*</span></div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea  ng-model="InterviewsController.data.groupDiscussionComments" name="Discussion"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+                    <div ng-messages="InterviewForm.Discussion.$error">
+                        <div ng-message="required">Group Discussion Comments are required.</div>
+                    </div>
+                </md-input-container>
+            </div> 
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Case1<span style= "color:red">*</span></div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea ng-model="InterviewsController.data.case1" name="Case1"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false"required></textarea>
+                    <div ng-messages="InterviewForm.Case1.$error">
+                        <div ng-message="required">Case1 is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Case2<span style= "color:red">*</span></div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea ng-model="InterviewsController.data.case2" name="Case2"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+                    <div ng-messages="InterviewForm.Case2.$error">
+                        <div ng-message="required">Case2 is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Overall Summary<span style= "color:red">*</span></div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea ng-model="InterviewsController.data.overallSummary" name="Summary" ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+                    <div ng-messages="InterviewForm.Summary.$error">
+                        <div ng-message="required">Overall summary is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </div>
+        
+               
+        <div flex layout="column" style = "padding: 20px">           
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Role<span style= "color:red">*</span></div> 
+                <div><b>:</b></div>
+                <md-input-container  class="md-block">
+                    <textarea ng-model="InterviewsController.data.quntitative1" name="quantitative1"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+                    <div ng-messages="InterviewForm.quantitative1.$error">
+                       <div ng-message="required">Quantitative1 is required.</div>
+                    </div>
+                </md-input-container>                
+            </div>
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Logical Test Score<span style= "color:red">*</span></div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea ng-model="InterviewsController.data.quntitative2" name="quantitative2"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled= "InterviewsController.edit == false" required></textarea>
+                    <div ng-messages="InterviewForm.quantitative2.$error">
+                        <div ng-message="required">Quantitative2 is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Technical Test Score<span style= "color:red">*</span></div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea  ng-model="InterviewsController.data.groupDiscussionComments" name="Discussion"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+                    <div ng-messages="InterviewForm.Discussion.$error">
+                        <div ng-message="required">Group Discussion Comments are required.</div>
+                    </div>
+                </md-input-container>
+            </div> 
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Interview 1 comments<span style= "color:red">*</span></div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea ng-model="InterviewsController.data.case1" name="Case1"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false"required></textarea>
+                    <div ng-messages="InterviewForm.Case1.$error">
+                        <div ng-message="required">Case1 is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Interview 2 comments<span style= "color:red">*</span></div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea ng-model="InterviewsController.data.case2" name="Case2"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+                    <div ng-messages="InterviewForm.Case2.$error">
+                        <div ng-message="required">Case2 is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Overall Summary<span style= "color:red">*</span></div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea ng-model="InterviewsController.data.overallSummary" name="Summary" ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+                    <div ng-messages="InterviewForm.Summary.$error">
+                        <div ng-message="required">Overall summary is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </div>
+        
+        <div flex layout="column" style = "padding: 20px">           
+            
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">General Test Score</div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea  ng-model="InterviewsController.data.groupDiscussionComments" name="Discussion"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false"></textarea>
+                    <div ng-messages="InterviewForm.Discussion.$error">
+                        <div ng-message="required">Group Discussion Comments are required.</div>
+                    </div>
+                </md-input-container>
+            </div> 
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Interview 1 comments</div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea ng-model="InterviewsController.data.case1" name="Case1"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false"></textarea>
+                    <div ng-messages="InterviewForm.Case1.$error">
+                        <div ng-message="required">Case1 is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Interview 2 comments</div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea ng-model="InterviewsController.data.case2" name="Case2"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false"></textarea>
+                    <div ng-messages="InterviewForm.Case2.$error">
+                        <div ng-message="required">Case2 is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row" style = "margin-top:15px">
+                <div flex= "25">Overall Summary<span style= "color:red">*</span></div>
+                <div><b>:</b></div>
+                <md-input-container class="md-block">
+                    <textarea ng-model="InterviewsController.data.overallSummary" name="Summary" ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+                    <div ng-messages="InterviewForm.Summary.$error">
+                        <div ng-message="required">Overall summary is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </div> 
+        
+        <div class="layout-row layout-align-end-center">        	
+			<md-button class="merilytics-puple-button" ui-sref="Home.IndividualEmployee.SkillDetails">Back</md-button>			
+			<md-button class="merilytics-green-button" ng-show="InterviewsController.edit == true || isSelectedNew == true" ng-click="InterviewsController.saveOrUpdate($event,InterviewForm,InterviewsController.data)">Save<md-tooltip md-direction= "top">Save</md-tooltip></md-button>			
+		</div>
+    </form> 
+    
+		</div>
+	</div>
+		
+    
+
+	</div>
+</div> --> 
+
+
+
+
+
+
+<div layout="column" layout-fill layout-padding flex style="background:white;border-radius: 10px;">
+	<div class="layout-column flex" style="background: #eaeaea;border-radius: 10px">
+		<div style="min-height: 50px" class="layout-row">
+			<div class="layout-row flex-xs-50 flex-gt-xs-45 flex-gt-sm-25 flex-25 layout-align-start-center">
+				<span><img ng-src="Assets\edu-details_black.svg" style="height: 40px;padding: 0 8px"></span>
+				<span class="view-header">Interview Details</span>
+				<span  ng-show="selectedEmployee.isActive"><i class="material-icons merilytics-cursor-pointer" style="font-size: 24px !important;margin-left: 16px;" ng-click="InterviewsController.ChangeEditMode()"><md-tooltip>Edit</md-tooltip>mode_edit</i></span>
+			</div>
+			<div class="flex layout-column" style="background: white;margin-right: -8px;margin-top: -8px;">
+				<div class="cutCorner"></div>
+			</div>
+			<div class="flex-80 layout-align-end-center layout-row" style="background: white;margin-left: 8px;margin-top: -8px;margin-right: -8px;">
+				<span>
+					<md-checkbox ng-model="selectedEmployee.isActive" ng-disabled="true" aria-label="selectedEmployee.isActive"  ng-click = "InterviewsController.changeEmploymentStatus()" style = "margin-bottom: 0">
+	            		<span style = "color: #626262 !important;">Employee Status:</span>&nbsp;<span ng-style="{ 'color' : selectedEmployee.isActive ? '#95af28' : '#383085' }">{{selectedEmployee.isActive?  'Active' : 'Inactive'}} &nbsp;&nbsp;&nbsp;</span>
+	          		</md-checkbox>
+				</span>
+				<span style="color: #626262 !important"> 
+						<span class="hide-sm hide-xs">Employee Name & ID:&nbsp;</span> 
+						<span class="hide-xs" style="color: #626262 !important;font-weight: bold;" ng-show="selectedEmployee.employeeID>0">{{selectedEmployee.employeeName}}&nbsp;&nbsp;[&nbsp;{{selectedEmployee.employeeID}}&nbsp;]</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="layout-row flex">
+			<div class="flex layout-column" style="padding: 0 8px;">
+			<form name="InterviewForm" class="flex layout-column">
+ 				<div class="layout-row" layout-align = "center center" style="padding: 0 8px; margin: 10px 0px;">
+					<!-- <span class="layout-row layout-align-space-around-center new-button-screen" ng-click = "EducationalDetailsController.ChangeDetails(null)"> <span>Add Educational Details</span> <i class= "material-icons" style="font-size: 24px !important">add_circle_outline</i></span>	 -->
+					<div>Please select the domain to view the details</div>
+					<md-input-container >             
+		                <md-select ng-model="InterviewsController.selectedDomain" style = "background: white !important" 
+		                	ng-change = "InterviewsController.domainChange(InterviewsController.selectedDomain)" 
+		                	name="selectedDomain" required  aria-label="selectedDomain">
+		                	                      
+		                    <md-option ng-repeat="level in InterviewsController.domains" ng-value="level.interviewDomainID">
+		                    {{level.interviewDomainName}}
+		                    </md-option>
+		                </md-select>
+		                <div ng-messages="InterviewForm.selectedDomain.$error">
+		                    <div ng-message="required">Domain is required.</div>
+		                </div>
+            		</md-input-container>			
+				</div>
+				<!-- {{InterviewsController.selectedDomain}} {{InterviewsController.data}} --> 
+				<div flex style="background: white;border-radius:10px" class="layout-column flex">
+					<div class="flex layout-column" style="padding: 0 16px;">
+					   
+							<div class="flex layout-column" ng-if = "InterviewsController.selectedDomain== 'null'">
+								<div layout= "row" layout-align="center center" style= "min-height : 100%; text-shadow: 1px 1px rgb(216, 216, 216)">Please select domain to view details.</div>						  
+							</div>
+							<div flex layout="column" style = "padding: 20px" ng-if = "InterviewsController.selectedDomainName == 'Business'">        
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">DI Test Score<span style= "color:red">*</span></div> 
+					                <div><b>:</b></div>
+					                <md-input-container  class="md-block">
+					                    <textarea ng-model="InterviewsController.data.businessDomain.testScoreDI" name="testScoreDI"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+					                    <div ng-messages="InterviewForm.testScoreDI.$error">
+					                       <div ng-message="required">DI testScore  is required.</div>
+					                    </div>
+					                </md-input-container>                
+					            </div>
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">PST Test Score<span style= "color:red">*</span></div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea ng-model="InterviewsController.data.businessDomain.testScorePST" name="testScorePST"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled= "InterviewsController.edit == false" required></textarea>
+					                    <div ng-messages="InterviewForm.testScorePST.$error">
+					                        <div ng-message="required">PST testScore is required.</div>
+					                    </div>
+					                </md-input-container>
+					            </div>
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Group Discussion Comments<span style= "color:red">*</span></div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea  ng-model="InterviewsController.data.businessDomain.groupDiscussionComments" name="Discussion"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+					                    <div ng-messages="InterviewForm.Discussion.$error">
+					                        <div ng-message="required">Group Discussion Comments are required.</div>
+					                    </div>
+					                </md-input-container>
+					            </div> 
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Case 1 Comments<span style= "color:red">*</span></div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea ng-model="InterviewsController.data.businessDomain.case1" name="Case1"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false"required></textarea>
+					                    <div ng-messages="InterviewForm.Case1.$error">
+					                        <div ng-message="required">Case1 is required.</div>
+					                    </div>
+					                </md-input-container>
+					            </div>
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Case 2 Comments<span style= "color:red">*</span></div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea ng-model="InterviewsController.data.businessDomain.case2" name="Case2"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+					                    <div ng-messages="InterviewForm.Case2.$error">
+					                        <div ng-message="required">Case2 is required.</div>
+					                    </div>
+					                </md-input-container>
+					            </div>
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Overall Summary<span style= "color:red">*</span></div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea ng-model="InterviewsController.data.businessDomain.overallSummary" name="Summary" ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+					                    <div ng-messages="InterviewForm.Summary.$error">
+					                        <div ng-message="required">Overall summary is required.</div>
+					                    </div>
+					                </md-input-container>
+					            </div>
+        					</div>
+        
+               
+					        <div flex layout="column" style = "padding: 20px" ng-if = "InterviewsController.selectedDomainName == 'Technology'">           
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Role<span style= "color:red">*</span></div> 
+					                <div><b>:</b></div>
+            						<md-input-container>             
+						                <md-select ng-model="InterviewsController.data.technologyDomain.streamID" name="streamID"  aria-label="streamID"
+						                	ng-class = "InterviewsController.edit ? '' : 'InputViewMode'" ng-disabled="!InterviewsController.edit" required>                      
+						                    <md-option ng-repeat="level in InterviewsController.technologyStreams track by $index" ng-value="level.streamID">
+						                    {{level.streamName}}
+						                    </md-option>
+						                </md-select>
+						                <div ng-messages="InterviewForm.streamID.$error">
+						                    <div ng-message="required">Role is required.</div>
+						                </div>
+						            </md-input-container>               
+					             </div>
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Logical Test Score<span style= "color:red">*</span></div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea ng-model="InterviewsController.data.technologyDomain.testScoreLogical" name="testScoreLogical"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled= "InterviewsController.edit == false" required></textarea>
+					                    <div ng-messages="InterviewForm.testScoreLogical.$error">
+					                        <div ng-message="required">Logical Test score is required.</div>
+					                    </div>
+					                </md-input-container>
+					            </div>
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Technical Test Score<span style= "color:red">*</span></div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea  ng-model="InterviewsController.data.technologyDomain.testScoreTechnical" name="testScoreTechnical"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+					                    <div ng-messages="InterviewForm.testScoreTechnical.$error">
+					                        <div ng-message="required">Technical test score is required.</div>
+					                    </div>
+					                </md-input-container>
+					            </div> 
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Interview 1 Comments<span style= "color:red">*</span></div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea ng-model="InterviewsController.data.technologyDomain.interviewComments1" name="interviewComments1"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false"required></textarea>
+					                    <div ng-messages="InterviewForm.interviewComments1.$error">
+					                        <div ng-message="required">Interview comments are required.</div>
+					                    </div>
+					                </md-input-container>
+					            </div>
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Interview 2 Comments<span style= "color:red">*</span></div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea ng-model="InterviewsController.data.technologyDomain.interviewComments2" name="interviewComments2"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+					                    <div ng-messages="InterviewForm.interviewComments2.$error">
+					                        <div ng-message="required">Interview comments are required.</div>
+					                    </div>
+					                </md-input-container>
+					            </div>
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Overall Summary<span style= "color:red">*</span></div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea ng-model="InterviewsController.data.technologyDomain.overallSummary" name="Summary" ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+					                    <div ng-messages="InterviewForm.Summary.$error">
+					                        <div ng-message="required">Overall summary is required.</div>
+					                    </div>
+					                </md-input-container>
+					            </div>
+					        </div>
+        
+					        <div flex layout="column" style = "padding: 20px" ng-if = "InterviewsController.selectedDomainName == 'Others'">          
+					            
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">General Test Score</div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea  ng-model="InterviewsController.data.othersDomain.testScoreGeneral" name="Discussion"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false"></textarea>
+					                </md-input-container>
+					            </div> 
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Interview 1 Comments</div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea ng-model="InterviewsController.data.othersDomain.interviewComments1" name="interviewComments1"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false"></textarea>
+					                </md-input-container>
+					            </div>
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Interview 2 Comments</div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea ng-model="InterviewsController.data.othersDomain.interviewComments2" name="interviewComments2"  ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false"></textarea>					                    
+					                </md-input-container>
+					            </div>
+					            <div layout="row" style = "margin-top:15px">
+					                <div flex= "25">Overall Summary<span style= "color:red">*</span></div>
+					                <div><b>:</b></div>
+					                <md-input-container class="md-block">
+					                    <textarea ng-model="InterviewsController.data.othersDomain.overallSummary" name="Summary" ng-class= "InterviewsController.edit? 'textboxEditMode' :'textViewMode' " md-select-on-focus ng-disabled = "InterviewsController.edit == false" required></textarea>
+					                    <div ng-messages="InterviewForm.Summary.$error">
+					                        <div ng-message="required">Overall summary is required.</div>
+					                    </div>
+					                </md-input-container>
+					            </div>
+					        </div>
+							
+							<div class="layout-row layout-align-end-center">
+								<md-button class="merilytics-puple-button" ui-sref="Home.IndividualEmployee.DocumentDetails">Back</md-button>			
+								<md-button class="merilytics-green-button" ng-show="InterviewsController.edit == true || isSelectedNew == true" ng-click="InterviewsController.saveOrUpdate($event,InterviewForm,InterviewsController.data, InterviewsController.selectedDomain)">Save<md-tooltip md-direction= "top">Save</md-tooltip></md-button>
+							</div>
+						</form>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    
+<style>
+md-input-container {
+	margin:0px 20px;
+	padding:0px;
+	min-width:70% !important;	
+}
+md-input-container textarea.md-input {
+	border: 1px solid #efefef !important;
+	border-radius: 5px !important;
+	margin-top : -4px !important;
+	min-height : 90px !important;
+	max-height : 90px !important;	
+	height : auto !important; 
+	min-width :100% !important;
+	overflow-y : auto !important;
+	padding-left : 4px !important;
+}
+.textboxEditMode {
+	box-shadow: inset 0px 2px 2px 0px #ddd !important;
+	background : #ededed !important;
+	border: 1px solid #95af28 !important;	
+}
+ .textViewMode{
+	box-shadow: 0 0 2px 0px #a1a1a1 !important;
+	background-color: #f5f5f5 !important;
+} 
+ input, md-select {
+	background: #ededed;
+	border: 1px solid #ddd;
+	max-width : 200px;
+	margin-top : -6px !important;
+	box-shadow: inset 0px 2px 2px 0px #ddd !important; 
+}
+.InputViewMode {	
+	box-shadow : none !important;
+	background : #f5f5f5 !important;
+	padding-left : 4px !important;
+}
+.InputViewMode .md-select-value .md-select-icon {
+display :none !important;
+}
+.md-select-value{
+align-items : unset !important;
+-webkit-align-items : unset !important;
+}
+.md-select-value .md-select-icon::after {
+	top : 6px !important;
+}
+md-select.ng-required.ng-invalid:not(.md-no-asterisk) .md-select-value span:first-child::after, md-select[required].ng-invalid:not(.md-no-asterisk) .md-select-value span:first-child::after, 
+md-input-container:not(.md-input-has-value) md-select.ng-required:not(.md-no-asterisk) .md-select-value span:first-child::after, md-input-container:not(.md-input-has-value) md-select[required]:not(.md-no-asterisk) .md-select-value span:first-child::after {
+content :'';
+}
+</style>

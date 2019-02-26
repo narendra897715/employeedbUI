@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+<context:component-scan base-package="com.merilytics.emp.dao,com.merilytics.emp.config,com.merilytics.emp.mail,com.merilytics.emp.util"/>
+ <tx:annotation-driven/>
+ 
+<!--  <bean id="dataSource"  class="org.springframework.jndi.JndiObjectFactoryBean">
+   <property name="jndiName" value="java:/MSSQLDS"/>
+</bean> -->
+ 
+ <bean id="pphc"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:DBDetails.properties"/>
+	</bean>
+ 
+  <bean id="LMSdataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="${jdbc.driver}"/>
+    <property name="url" value="${jdbc.url}"/>
+    <property name="username" value="${jdbc.user}"/>
+    <property name="password" value="${jdbc.pwd}"/>
+  </bean>
+  
+  
+    <!-- <bean id="LMSds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+    <property name="url" value="jdbc:sqlserver://MER-SVR-0001:1433;databaseName=Authentication_LMS_test"/>
+    <property name="username" value="LMS_Login"/>
+    <property name="password" value="Pg22ADTkL2"/>
+  </bean> -->
+  <!-- 
+  <bean id="PMds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+    <property name="url" value="jdbc:sqlserver://MER-SVR-0001:1433;databaseName=PMApp_V2"/>
+    <property name="username" value="sa"/>
+    <property name="password" value="123@Meritus"/>
+  </bean> -->
+  
+  
+  
+  
+
+ <bean id="LMSsf" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+   <property name="dataSource" ref="LMSdataSource"/>
+    <property name="packagesToScan" >
+    <list>
+    <value>com.merilytics.emp.bo</value>
+    </list>
+    
+    </property>
+   <property name="hibernateProperties">
+    <props>
+      <!-- <prop key="hibernate.show_sql">true</prop> -->
+      <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+<!--       <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+<prop key="hibernate.cache.use_second_level_cache">false</prop>
+	  <!-- <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+      <prop key="net.sf.ehcache.configurationResourceName">hibernate-ehcache.xml</prop>
+      <prop key="hibernate.cache.use_query_cache">true</prop> -->
+    </props>
+   </property>
+ </bean>
+ 
+ 
+<!--     <bean id="LMSaf" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+   <property name="dataSource" ref="LMSds"/>
+   <property name="packagesToScan" value="com.merilytics.bo"/>
+   <property name="hibernateProperties">
+    <props>
+      <prop key="hibernate.show_sql">true</prop>
+      <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+      <prop key="hibernate.hbm2ddl.auto">update</prop>
+<prop key="hibernate.cache.use_second_level_cache">false</prop>
+	  <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+      <prop key="net.sf.ehcache.configurationResourceName">hibernate-ehcache.xml</prop>
+      <prop key="hibernate.cache.use_query_cache">true</prop>
+    </props>
+   </property>
+ </bean> -->
+ <!-- 
+ 
+     <bean id="PMsf" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+   <property name="dataSource" ref="PMds"/>
+   <property name="packagesToScan" value="com.merilytics.bo"/>
+   <property name="hibernateProperties">
+    <props>
+      <prop key="hibernate.show_sql">true</prop>
+      <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+      <prop key="hibernate.hbm2ddl.auto">update</prop>
+<prop key="hibernate.cache.use_second_level_cache">false</prop>
+	  <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+      <prop key="net.sf.ehcache.configurationResourceName">hibernate-ehcache.xml</prop>
+      <prop key="hibernate.cache.use_query_cache">true</prop>
+    </props>
+   </property>
+ </bean> -->
+ 
+  <!-- <bean id="LMSauthenticationTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+   <property name="sessionFactory" ref="LMSaf"/> 
+ </bean> -->
+ 
+ <bean id="ht" class="org.springframework.orm.hibernate5.HibernateTemplate">
+   <property name="sessionFactory" ref="LMSsf"/> 
+ </bean>
+ 
+<!--  <bean id="PMhibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+   <property name="sessionFactory" ref="PMsf"/> 
+ </bean> -->
+ <!-- 
+  <bean id="LMStm" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+   <property name="sessionFactory" ref="LMSaf"/>
+ </bean>  
+    <tx:annotation-driven transaction-manager="LMStm"/> -->
+ 
+ 
+    
+ <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+   <property name="sessionFactory" ref="LMSsf"/>
+ </bean>
+ 
+  <tx:annotation-driven transaction-manager="transactionManager"/>
+ 
+   <!-- <bean id="PMtransactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+   <property name="sessionFactory" ref="PMsf"/>
+ </bean>
+ 
+  <tx:annotation-driven transaction-manager="PMtransactionManager"/> -->
+
+  <bean id="mail" class="org.springframework.mail.javamail.JavaMailSenderImpl"/>
+		
+  
+  
+ 
+ 
+ 
+ 
+</beans>

@@ -1,0 +1,76 @@
+<div layout="column" flex layout-fill>
+	<div class="layout-column flex">
+		<div class="layout-row hide-gt-md " >
+			<span class="layout-row layout-align-center-center merilytics-cursor-pointer" ng-click="toggleLeft()">
+				<i class="material-icons layout-padding">menu</i><span>Side menu</span>
+			</span>	
+		</div>
+		<div class="layout-row flex">
+		<md-sidenav class="md-sidenav-left"  md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4" style="background:#95Af28">
+      		<md-toolbar class="md-theme-indigo">
+        		 <div class="layout-row layout-align-start-center merilytics-cursor-pointer" style="border-bottom: 2px solid #626262;background: white;" ui-sref="Home.Employees">
+						<span><img ng-src="Assets\employees.svg" style="min-height:75px;max-height: 75px;padding: 0px 8px;"></span>
+						<span class="menu-style" style="color:#95AF28">Employees [{{totalEmployees}}]</span>
+					</div>
+      		</md-toolbar>
+		      <md-content>
+			        	<div ng-repeat="vn in individualEmployeeController.sideMenu" ng-class="vn.url===selectedView ?'selected-view':'unselected-view'" ng-click="individualEmployeeController.ChangeView(vn)"  class="layout-row layout-align-start-center">
+							<span ng-show="vn.url==selectedView"><img layout-padding ng-src="{{vn.icon1}}" style="height: 40px"></span>
+							<span ng-show="vn.url!=selectedView"><img layout-padding ng-src="{{vn.icon}}" style="height: 40px"></span>
+							<span class="menu-style" ng-class="vn.url===selectedView ?'selected-viewtext':'unselected-viewtext'">{{vn.viewName}}</span>
+						</div>
+			  </md-content>
+		</md-sidenav>
+			<div class="flex layout-fill layout-column">
+				<div ui-view class="flex layout-column"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+.merilytics-side{
+	background: #95AF28;
+}
+
+.merilytics-side div{
+	border-bottom: 2px solid #8B9F38;
+	border-left: 10px solid #626262;
+	color: whitesmoke;
+}
+.merilytics-side div:HOVER {
+	background:#f7f7f7;
+	border-left: 10px solid #95Af28;
+	color: #626262 !important;
+	cursor: pointer;
+	transition: all .5s !important;
+}
+.selected-view{
+	background:#f7f7f7;
+	border-left: 10px solid #95Af28;
+	border-bottom: 1px solid #626262;
+	color: #626262 !important;
+	cursor: pointer;
+}
+.unselected-view{
+	background:#95AF28;
+	border-left: 10px solid #626262;
+	border-bottom:1px solid #626262;
+	color: #626262 !important;
+	cursor: pointer;
+}
+.unselected-view:HOVER{
+	/* background:#f7f7f7; */
+	border-left: 10px solid #626262;
+	color: #626262 !important;
+	cursor: pointer;
+}
+
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon{
+	background-color: #95AF28 !important
+}
+.selected-viewtext{
+color:black;
+}
+
+</style>

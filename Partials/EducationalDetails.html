@@ -1,0 +1,333 @@
+<div layout="column" layout-fill layout-padding flex style="background:white;border-radius: 10px;">
+	<div class="flex layout-column" style="background: #eaeaea;border-radius: 10px">
+		<div style="min-height: 50px" class="layout-row">
+			<div class="layout-row flex-xs-50 flex-gt-xs-45 flex-gt-sm-25 flex-25 layout-align-start-center">
+				<span><img ng-src="Assets\edu-details_black.svg" style="height: 40px;padding: 0 8px"></span>
+				<span class="view-header">Educational Details</span>				
+			</div>
+			<div class="flex layout-column" style="background: white;margin-right: -8px;margin-top: -8px;">
+				<div class="cutCorner"></div>
+			</div>
+			<div class="flex-80 layout-align-end-center layout-row" style="background: white;margin-left: 8px;margin-top: -8px;margin-right: -8px;">
+				<span>
+					<md-checkbox ng-model="selectedEmployee.isActive" ng-disabled="true" aria-label="selectedEmployee.isActive"  ng-click = "EducationalDetailsController.changeEmploymentStatus()" style = "margin-bottom: 0">
+	            		<span style = "color: #626262 !important;">Employee Status:</span>&nbsp;<span ng-style="{ 'color' : selectedEmployee.isActive ? '#95af28' : '#383085' }">{{selectedEmployee.isActive?  'Active' : 'Inactive'}} &nbsp;&nbsp;&nbsp;</span>
+	          		</md-checkbox>
+				</span>
+				<span style="color: #626262 !important"> 
+						<span class="hide-sm hide-xs">Employee Name & ID:&nbsp;</span> 
+						<span class="hide-xs" style="color: #626262 !important;font-weight: bold;" ng-show="selectedEmployee.employeeID>0">{{selectedEmployee.employeeName}}&nbsp;&nbsp;[&nbsp;{{selectedEmployee.employeeID}}&nbsp;]</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="layout-row flex">
+			<div class="flex layout-column" style="padding: 0 8px;">
+ 				<div class="layout-row" style="padding: 0 8px; margin: 10px 0px" ng-show="selectedEmployee.isActive">
+					<span class="layout-row layout-align-space-around-center new-button-screen" ng-click = "EducationalDetailsController.ChangeDetails(null)"> <span>Add Educational Details</span> <i class= "material-icons" style="font-size: 24px !important">add_circle_outline</i></span>				
+				</div>
+				<div style="background: white;border-radius:10px" class="layout-column flex">
+					<div class="flex layout-column" style="padding: 0 16px;">
+							<form name="EducationalDetailsForm" class="flex layout-column">							
+							  <div class="flex layout-column">								
+								<md-table-container class="employees-table">
+									<table md-table>
+										<thead md-head>
+											<tr md-row class= "borderBottom">
+												<th md-column style="color: #95af28; font-size: 14px; padding-right: 10px">Academic Year</th>
+												<th md-column style="color: #95af28; font-size: 14px; padding-right: 10px">College or School Name &amp; Course</th>
+												<th md-column style="color: #95af28; font-size: 14px; padding-right: 10px">Percentage</th>
+												<th md-column style="color: #95af28; font-size: 14px; padding-right: 10px">Remarks</th>						
+												<th md-column style="color: #95af28; font-size: 14px; padding-right: 10px">Actions</th>
+											</tr>					
+										</thead>				
+										<tbody md-body>					
+											<tr md-row ng-repeat="data in EducationalDetailsController.Details">
+												<td md-cell ng-click="EducationalDetailsController.ChangeDetails(data)" ><md-tooltip>{{data['period']}}</md-tooltip>{{data['period']}}</td>
+												<td md-cell style = "padding-right : 10px; max-width : 100%; overflow: hidden; text-overflow: ellipsis" ng-click="EducationalDetailsController.ChangeDetails(data)" layout= "column">
+													<span><md-tooltip>{{data['collegeOrSchoolName']}} | {{data['collegeOrSchoolLocation']}}</md-tooltip>{{data['collegeOrSchoolName']}} | {{data['collegeOrSchoolLocation']}}</span>
+													<span>{{data['courseName']}}<md-tooltip>{{data['courseName']}}</md-tooltip></span>
+												</td>
+												<td md-cell style = "padding-right : 10px" ng-click="EducationalDetailsController.ChangeDetails(data)"><md-tooltip>{{data['percentage']}}</md-tooltip>{{data['percentage']}}</td>
+												<td md-cell style = "padding-right : 10px; max-width : 200px; overflow: hidden; text-overflow: ellipsis" ng-click="EducationalDetailsController.ChangeDetails(data)"><md-tooltip>{{data['remarks']}}</md-tooltip>{{data['remarks']}}</td>
+												
+												<td md-cell style="min-width:50px !important;max-width: 50px !important">
+													 <md-menu>							                      
+									                     <i md-menu-origin class="material-icons" ng-click="$mdOpenMenu()" style = "cursor:pointer">storage</i>
+									                     <md-menu-content width="2">
+									                          <md-menu-item>
+									                              <md-button ng-click = "EducationalDetailsController.ChangeDetails(data)" style="display:inherit">
+									                              	<i class= "material-icons">mode_edit</i>Edit
+									                              </md-button>
+									                          </md-menu-item>
+									                          <md-menu-item>
+									                              <md-button ng-click = "EducationalDetailsController.deleteDetails(data)" style="display:inherit"><i class= "material-icons">delete</i>Delete</md-button>
+									                          </md-menu-item>
+									                      </md-menu-content>
+									                  </md-menu>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+						</md-table-container>
+		                <div flex layout= "row" layout-align="center center" style= "text-shadow: 1px 1px rgb(216, 216, 216)" ng-if = "EducationalDetailsController.Details.length == 0">No details to show</div>
+							    	
+						</div>
+						<div class="layout-row layout-align-end-center">
+							<md-button class="merilytics-puple-button" ui-sref="Home.IndividualEmployee.FinancialDetails">Back</md-button>	
+		 					<md-button class="merilytics-puple-button" ui-sref="Home.IndividualEmployee.ExperienceDetails">Next</md-button>
+						</div>
+					</form>
+				  </div>					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/ng-template" id="EducationalDetails.html">
+
+<md-dialog aria-label="New Educational details" style= "width : 60%; height: auto">
+
+    <form flex name = "newEducationalDetailsForm">
+      <md-toolbar>
+        <div class="md-toolbar-tools" style= "background-color: white; color: black">
+          <h2>Add New Educational details</h2> 
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="closeView()"> <md-tooltip>Close</md-tooltip>
+            <img ng-src="Assets\close.png" aria-label="Close dialog"></img>
+          </md-button>
+        </div>
+      </md-toolbar>
+
+ <md-dialog-content>
+      <div class="md-dialog-content" flex layout= "column" style = "padding-bottom:0px">
+
+      <div flex layout = "row" style = "padding-bottom: 15px">
+		<div flex= "50" layout= "row">
+          <div flex= "40">Course<span style = "color:red">*</span></div>
+          <div>:</div>
+          <div flex>
+			<md-input-container class="md-block">               
+                <md-select ng-model="EducationalDetailsController.details['courseID']" name="courseID"  aria-label="Course" required>                      
+                    <md-option ng-repeat="level in EducationalDetailsController.courses" ng-value="level.courseID">
+                    {{level.courseName}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="newEducationalDetailsForm.courseID.$error">
+                    <div ng-message="required">Course is required.</div>
+                </div>
+            </md-input-container>
+           </div>
+        </div>
+		<div flex layout= "row" style= "padding-left: 8%">
+            <div flex= "40">College/ School<span style = "color:red">*</span></div> 
+            <div>:</div>
+            <div flex>
+              <md-input-container class="md-block">
+                <input type="text" ng-model="EducationalDetailsController.details.collegeOrSchoolName" name="collegeOrSchoolName"  aria-label="collegeOrSchoolName" required>
+				  <div ng-messages="newEducationalDetailsForm.collegeOrSchoolName.$error">
+                      <div ng-message="required">College/School name is required.</div>
+                  </div>              
+              </md-input-container>
+            </div>
+        </div>
+
+        
+      </div>
+
+      <div flex layout = "row" style= "padding: 15px 0px">
+        <div flex= "50" layout= "row">
+          <div flex= "40">Board<span style = "color:red">*</span></div>
+          <div>:</div>          
+		  <div flex>
+			<md-input-container class="md-block">               
+                <md-select ng-model="EducationalDetailsController.details['boardID']" name="boardID"  aria-label="Board" required>                      
+                    <md-option ng-repeat="level in EducationalDetailsController.boards" ng-value="level.boardID">
+                    {{level.boardName}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="newEducationalDetailsForm.boardID.$error">
+                    <div ng-message="required">Board is required.</div>
+                </div>
+            </md-input-container>
+           </div>
+        </div>
+        <div flex layout= "row" style= "padding-left: 8%">
+            <div flex= "40">Period<span style = "color:red">*</span></div> 
+            <div>:</div>
+            
+ 			<div flex>
+              <md-input-container class="md-block">
+                  <input ng-model="EducationalDetailsController.details.period" name="period"  aria-label="period" required>
+                  <div ng-messages="newEducationalDetailsForm.period.$error">
+                      <div ng-message="required">Period is required.</div>
+                  </div>                         
+              </md-input-container>
+          	</div>
+        </div>
+        </div>
+
+	<div flex layout = "row" layout-align= "space-between center" style= "padding: 15px 0px">
+        <div flex = "50" layout= "row">
+          <div flex= "40">Department</div>
+          <div>:</div>
+          <div flex>
+              <md-input-container class="md-block">
+                  <input type="text" ng-model="EducationalDetailsController.details.department" name="department"  aria-label="Department">
+                  <div ng-messages="newEducationalDetailsForm.department.$error">
+                      <div ng-message="required">Department is required.</div>
+                  </div>                         
+              </md-input-container>
+          </div>
+        </div>
+        <div flex = "50" layout= "row" style= "padding-left: 8%">
+            <div flex= "40">Location<span style = "color:red">*</span></div>
+            <div>:</div>
+            <div flex>
+                <md-input-container class="md-block">
+                    <input type="text" ng-model="EducationalDetailsController.details.collegeOrSchoolLocation" name="collegeOrSchoolLocation"  aria-label="place" required>
+                    <div ng-messages="newEducationalDetailsForm.collegeOrSchoolLocation.$error">
+                        <div ng-message="required">Location is required.</div>
+                    </div>                           
+                </md-input-container>
+            </div>
+        </div>
+        </div>
+
+	<div flex layout = "row" layout-align= "space-between center" style= "padding: 15px 0px">
+            <div flex = "50" layout= "row">
+              <div flex= "40">Duration<span style = "color:red">*</span></div>
+              <div>:</div>
+              <div flex>                  
+				<md-input-container class="md-block">
+					<span style = "margin-left:80%">Years</span>
+					<input type="text" style = "margin-top:-30px !important; padding-right: 50px !important" numbers-only = "" ng-model="EducationalDetailsController.details.collegeOrSchoolduration" name="collegeOrSchoolduration"  aria-label="duration" required>
+					
+					
+					<div ng-messages="newEducationalDetailsForm.collegeOrSchoolduration.$error">
+                        <div ng-message="required">Duration is required.</div>
+						<div ng-message="parse">Duration is only numeric.</div>
+                    </div>
+				</md-input-container>
+              </div>
+            </div>
+            <div flex = "50" layout= "row" style= "padding-left: 8%">
+                <div flex= "40">Percentage<span style = "color:red">*</span></div>
+                <div>:</div>
+                <div flex>
+                    <md-input-container class="md-block"> 
+						<span style = "margin-left:90%">%</span>
+                        <input type="text" style = "margin-top:-30px !important; padding-right: 20px !important" numbers-and-dot-only = "" ng-model="EducationalDetailsController.details.percentage" name="percentage"  aria-label="percentage" required>
+                        <div ng-messages="newEducationalDetailsForm.percentage.$error">
+                            <div ng-message="required">Percentage is required.</div>
+							<div ng-message="parse">Percentage is only numeric.</div>
+                        </div>                           
+                    </md-input-container>
+                </div>
+            </div>
+           </div>
+
+		 <div flex layout = "row" style= "padding-top: 15px">
+                <div flex= "20">Remarks</div>
+                <div>:</div>
+                <div flex>
+                    <md-input-container class="md-block">                        
+                        <textarea ng-model="EducationalDetailsController.details.remarks" name="remarks" md-select-on-focus></textarea>
+                        <div ng-messages="newEducationalDetailsForm.remarks.$error">
+                            <div ng-message="required">Remarks are required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+              </div>
+
+
+			<md-card-actions layout="row" layout-align="end center" style="background: white">
+                <md-button class="md-raised" style="background-color:#95af28; color:white; margin: 10px; " ng-click="EducationalDetailsController.saveOrUpdate($event,newEducationalDetailsForm,EducationalDetailsController.details)">save</md-button>
+                <md-button class="md-raised" style="background-color:gray; color:white; margin: 10px 0px;" ng-click="closeView()">close</md-button>
+            </md-card-actions>
+
+	</div>
+      </md-dialog-content>  
+  
+       
+    </form>
+  </md-dialog>
+</script>
+
+
+<style>
+
+ .md-button {
+text-transform :capitalize;
+}
+.md-open-menu-container.md-active {
+	border : 1px solid #95af28;
+}
+md-menu-content {
+	padding:0px !important;
+}
+md-menu-item > .md-button {
+	padding:0px 5px !important;
+}
+.material-icons {
+	padding: 0px 5px;
+}
+md-input-container {
+	margin:0px 20px;
+	padding:0px;
+	background-color:white !important;
+}
+md-input-container .md-input{
+	border: 1px solid #ddd !important; 
+	border-radius: 5px !important;
+	box-shadow: inset 0px 2px 2px 0px #ddd !important;
+	/* text-shadow: 1px 1px rgb(216, 216, 216) !important; */ 
+	background-color: white !important;
+	margin-top:-8px !important;
+	/* max-width :200px !important; */
+	padding-left: 4px !important;	
+}
+.md-datepicker-input {
+background-color: white !important;
+/* min-width: 200px !important;
+max-width:200px !important; */
+font-size: 16px !important; 
+}
+._md-datepicker-floating-label > md-datepicker .md-datepicker-button {
+display:none;
+}
+md-input-container textarea.md-input {
+background-color: white !important;
+min-width : 100% !important;
+}
+.md-icon-button + .md-datepicker-input-container {
+margin-left :0px;
+}
+._md-datepicker-floating-label._md-datepicker-has-calendar-icon .md-input-message-animation{
+margin:0px;
+}
+.md-default-theme .md-datepicker-input-mask-opaque, .md-datepicker-input-mask-opaque{
+height:25px !important;
+max-width:190px !important;
+top:-5px !important;
+}
+.md-datepicker-triangle-button.md-button.md-icon-button {
+margin-top:-8px;
+}
+input, md-select {
+background:white !important;
+border: 1px solid #ddd;
+box-shadow: inset 0px 2px 2px 0px #ddd !important;
+margin-top: -8px !important;
+}
+md-select.ng-required.ng-invalid:not(.md-no-asterisk) .md-select-value span:first-child::after, md-select[required].ng-invalid:not(.md-no-asterisk) .md-select-value span:first-child::after, 
+md-input-container:not(.md-input-has-value) md-select.ng-required:not(.md-no-asterisk) .md-select-value span:first-child::after, md-input-container:not(.md-input-has-value) md-select[required]:not(.md-no-asterisk) .md-select-value span:first-child::after {
+content :'';
+}
+tr.borderBottom th{
+	border-bottom : 1px solid black;
+}
+table.md-table td.md-cell:last-child, table.md-table th.md-column:last-child {
+padding: 0px;
+}
+</style>

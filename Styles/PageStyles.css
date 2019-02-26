@@ -1,0 +1,256 @@
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+.merilytics-title{
+	font-family: segoe ui !important;
+	font-size: 20px !important;
+	font-weight: bold;
+}
+
+* {
+	font-size: 16px ;
+	font-family: segoe ui
+}
+.merilytics-cursor-pointer{
+	cursor: pointer !important;
+}
+.meritus-toolbar{
+	border-bottom: 2px solid #95af28 !important;
+	box-shadow: 0px 4px 6px -1px rgba(0,0,0,.4) !important;
+	background:white !important;
+	color:black !important;
+	border-bottom: 2px solid #95af28 !important;
+}
+
+.material-icons{
+	font-family: 'Material Icons' !important;	
+}
+md-input-container .md-errors-spacer{
+	min-height: 0px !important;
+}
+/* .employees-toolbar div{
+	margin-left: 25px
+} */
+
+.employees-table thead {
+		text-align: left !important;
+	}
+.table	{
+	background: white !important;
+}
+table.md-table thead.md-head > tr.md-row{
+	height: 50px !important
+}
+ .employees-table tbody>tr:HOVER {
+	color: black !important;
+	cursor: pointer;
+	border: 2px solid #95Af28 !important;	
+}
+.menu-style {
+	font-size: 20px !important;
+	margin-left: 8px;
+	color:white;
+}
+table.md-table th.md-column.md-active md-icon{
+	color: #95Af28 !important	
+}
+.view-header{
+	font-size: 20px !important;
+	font-weight: bold;
+	color: #626262;
+}
+.md-table-pagination > *{
+	height: 35px !important;
+}
+md-input-container{
+	margin-top: 5px !important;
+	/* background: #ddd !important; */
+	border-radius: 8px !important;
+	border: none !important;
+	padding: 0px !important;	
+}
+md-input-container:not(.md-input-invalid).md-input-focused .md-input{
+	border-color: #95Af28 !important;
+}
+md-datepicker{
+	padding-right: 0 !important;
+	margin-right: 0 !important;
+}
+md-input-container .md-input{
+	/* width: 200px !important;
+	height: 35px !important; */
+	border-radius: 8px !important;		
+	border : none;	
+	padding: 0 6px !important;	
+}
+md-input-container .md-errors-spacer{
+	min-height: 0 !important;
+}
+md-select{
+	border-radius: 8px !important;
+}
+.md-datepicker-triangle-button.md-button.md-icon-button {
+    background-image: url(../Assets/calendar.png);
+    background-repeat: no-repeat;
+    background-position: 4px 13px;
+}
+input,md-select{
+	/* background: #E0E0E0 !important; */
+/* 	padding: 2px 6px 1px !important; */
+	/* width: 100%; */	 
+}
+md-select[disabled] .md-select-value {
+	background-repeat : no-repeat !important;
+}
+.merilytics-green-button{
+	background: #95Af28;
+	border-radius: 8px;
+	min-width: 72px;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+	margin: 8px;
+}
+.merilytics-green-button:HOVER{
+	color: #95AF28 !important
+}
+.merilytics-puple-button{
+	background: #504994;
+	border-radius: 8px;
+	min-width: 72px;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+	margin: 8px
+}
+.merilytics-puple-button:HOVER{
+	color: #504994 !important
+}
+md-input-container textarea.md-input{
+	min-height: 130px !important;
+	/* background: #E0E0E0 !important; */
+	box-shadow: 0 0 5px 0px #ddd;
+}
+.unSaved-span{
+	min-height: 60px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	word-wrap: break-word;
+}
+label{
+	font-size: 14px !important;
+	color: #626262;
+}
+md-input-container .md-input-message-animation{
+	font-size: 12px !important
+}
+md-select.ng-invalid.ng-touched .md-select-value{
+	border-bottom-right-radius: 10px !important;
+	border-bottom-left-radius: 10px !important;
+}
+.md-button[disabled]{
+	background: #ddd !important;
+	color:#626262 !important;
+}
+.md-button[disabled]:HOVER{
+	background: #ddd !important;
+	color:#626262 !important;
+}
+.md-radio-button.md-checked .md-off{
+	border-color: #95Af28 !important;
+}
+.md-on, md-radio-button .md-on{
+	background-color: #95AF28 !important;
+}
+md-radio-button.md-checked .md-off{
+	border-color: #95Af28 !important;
+}
+
+.cutCorner{
+	border:0 solid #eaeaea;
+    position:relative;
+    display:inline-block;
+    background:red;
+}
+.cutCorner img{
+	display:block;
+}
+.cutCorner:before {
+    position:absolute; left:-1px; bottom:-58px; content:'';
+    border-bottom: 58px solid #eaeaea;
+    border-right: 65px solid transparent;
+}
+.md-datepicker-input-container{
+	width: 100% !important;
+	/* background: #ddd; */
+	border-radius: 8px;
+}
+.new-button-screen{
+	background: #504994;
+	border-radius: 8px;
+	color: whitesmoke;
+	padding:8px 8px;
+	max-height: 30px !important;
+	min-width: 250px;
+	margin-bottom: 8px;
+	cursor: pointer;
+}
+.new-button-hidden-screen{
+	background: #eaeaea;
+	border-radius: 8px;
+	color: whitesmoke;
+	padding:8px 8px;
+	max-height: 30px !important;
+	min-width: 250px;
+	margin-bottom: 8px;
+}
+md-select.md-default-theme .md-select-value, md-select .md-select-value{
+	border-bottom: 0 !important
+}
+md-input-container .md-input[disabled],md-select[disabled] .md-select-value{
+	color: black !important;
+}
+.md-button.md-default-theme.md-raised, .md-button.md-raised{
+	background-color: #95AF28 !important;
+color: white !important;
+}
+md-table-pagination md-select{
+	width: 25% !important;
+}
+md-input-container .md-char-counter, md-input-container .md-input-message-animation {
+	line-height : 17px !important;
+}
+.app-icon {
+width: 40px;
+height: 40px;
+cursor:pointer;
+}
+
+.app-tile{
+width: 84px;
+display: inline-block;
+vertical-align: top;
+cursor: pointer;
+border: 1px solid #e6e6e6;
+padding: 12px;
+}
+
+.app-tile:hover{
+ border : 1px solid white !important;
+}
+
+md-menu-content.AppContent {
+    background-color: #e6e6e6;
+    width: 182px;
+    min-width: 182px;
+}
+
+@media screen and (max-width: 1250px){
+.responsiveMargin{
+	margin-top : 15px !important;
+}
+}

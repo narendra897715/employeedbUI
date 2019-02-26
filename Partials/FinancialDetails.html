@@ -1,0 +1,241 @@
+<div layout="column" layout-fill layout-padding flex style="background:white;border-radius: 10px;">
+	<div class="layout-column flex" style="background: #eaeaea;border-radius: 10px">
+		<div style="min-height: 50px" class="layout-row">
+			<div class="layout-row flex-xs-50 flex-gt-xs-45 flex-gt-sm-25 flex-25 layout-align-start-center">
+				<span><img ng-src="Assets\financial-details_black.svg" style="height: 40px;padding: 0 8px"></span>
+				<span class="view-header">Financial Details</span>
+				<span  ng-show="selectedEmployee.isActive"><i class="material-icons merilytics-cursor-pointer" style="font-size: 24px !important;margin-left: 16px;" ng-click="FinancialDetailsController.ChangeEditMode()"><md-tooltip>Edit</md-tooltip>mode_edit</i></span>
+			</div>
+			<div class="flex layout-column" style="background: white;margin-right: -8px;margin-top: -8px;">
+				<div class="cutCorner"></div>
+			</div>
+			<div class="flex-80 layout-align-end-center layout-row" style="background: white;margin-left: 8px;margin-top: -8px;margin-right: -8px;">
+				<span>
+					<md-checkbox ng-model="selectedEmployee.isActive" ng-disabled="true" aria-label="selectedEmployee.isActive"  ng-click = "FinancialDetailsController.changeEmploymentStatus()">
+	            		<span style = "color: #626262 !important;">Employee Status:</span>&nbsp;<span ng-style="{ 'color' : selectedEmployee.isActive ? '#95af28' : '#383085' }">{{selectedEmployee.isActive?  'Active' : 'Inactive'}} &nbsp;&nbsp;&nbsp;</span>
+	          		</md-checkbox>
+				</span>
+				<span style="color: #626262 !important"> 
+						<span class="hide-sm hide-xs">Employee Name & ID:&nbsp;</span> 
+						<span class="hide-xs" style="color: #626262 !important;font-weight: bold;" ng-show="selectedEmployee.employeeID>0">{{selectedEmployee.employeeName}}&nbsp;&nbsp;[&nbsp;{{selectedEmployee.employeeID}}&nbsp;]</span>
+				</span>
+			</div>
+		</div>
+		<div class="layout-row flex">
+			<div class="flex layout-column" style="padding: 0 8px;">
+ 					<div class="layout-row">
+						<div class="layout-row layout-align-start-center" ng-repeat="t in FinancialDetailsController.Tabs" style="min-height: 30px" ng-click="FinancialDetailsController.changeTab(t.tabId)">
+							<div class="layout-row layout-align-start-center merilytics-cursor-pointer" ng-class="{'selected-tab':t.tabId==selectedTab }">
+								<span style="padding: 16px"><span ng-class="{'selected-notificationNumbers':t.tabId==selectedTab,'unselected-notificationNumbers':t.tabId!=selectedTab}">{{$index+1}}</span><span>{{t.tabName}}</span></span>
+							</div>
+						</div>
+					</div>
+				<div flex style="background: white;" class="layout-column flex" ng-class="selectedTab==1 ? 'border-view1':'border-view'" >
+					<div ng-show="selectedTab==1" class="flex layout-column" style="padding: 0 16px;">
+							<form name="basicDetailsForm" class="flex layout-column">
+							<div class="flex layout-column" style="margin-top: 8px">
+									<div class="layout-row">
+										<div class="layout-column flex-gt-xs-50 flex-gt-md-30">
+											<label>Pan Card# <span style="color: red">*</span></label>
+											<!-- <span ng-show="!FinancialDetailsController.isEditMode" class="unSaved-span">{{basicDetails.panNumber}}</span> -->
+											<md-input-container>
+													<input type="text" ng-model="basicDetails.panNumber" ng-class = "FinancialDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'"required name="panNumber" aria-label="Pan Card" ng-disabled="!FinancialDetailsController.isEditMode" >
+													<div ng-messages="basicDetailsForm.PANNumber.$error">
+  			 											<div ng-message="required">PAN Number is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+									</div>
+									<div class="layout-row">
+										<div class="layout-column flex-gt-xs-50 flex-gt-md-30">
+											<label>Aadhar Card# <span style="color: red">*</span></label>
+<!-- 											<span ng-show="!FinancialDetailsController.isEditMode" class="unSaved-span">{{basicDetails.adharNumber}}</span> -->
+											<md-input-container>
+													<input type="text" ng-model="basicDetails.adharNumber" ng-class = "FinancialDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" numbers-only name="adharNumber" required aria-label="Aadhar" ng-disabled="!FinancialDetailsController.isEditMode">
+													<div ng-messages="basicDetailsForm.adharNumber.$error">
+  			 											<div ng-message="required">Aadhar card is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+									</div>
+									<div class="layout-row">
+										<div class="layout-column flex-gt-xs-50 flex-gt-md-30">
+											<label>Passport#</label>
+											<!-- <span ng-show="!FinancialDetailsController.isEditMode" class="unSaved-span">{{basicDetails.passportNumber}}</span> -->
+											<md-input-container>
+													<input type="text" ng-model="basicDetails.passportNumber" name="passportNumber" ng-class = "FinancialDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" aria-label="Passport "  ng-disabled="!FinancialDetailsController.isEditMode">
+											</md-input-container>
+										</div>
+									</div>
+									<div class="layout-row">
+										<div class="layout-column flex-gt-xs-50 flex-gt-md-30">
+											<label>Passport Expiry Date</label>
+											<!-- <span ng-show="!FinancialDetailsController.isEditMode" class="unSaved-span">{{basicDetails.passportExpiryDate | date}}</span> -->
+											<md-input-container ng-class = "FinancialDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'">
+													<md-datepicker id="customDatePickerHeight" ng-model="basicDetails.passportExpiryDate" aria-label="Passport expiry date" ng-disabled="!FinancialDetailsController.isEditMode"
+													  ng-model-options="{ timezone: 'utc' }" name="passportExpiryDate" md-open-on-focus 
+													  md-hide-icons="calendar"  md-no-asterisk  md-placeholder='Passport expiry date'>
+ 			 										</md-datepicker>
+													<!-- <input type="text" ng-model="basicDetails.passportExpiryDate" name="passportExpiryDate"  aria-label="Passport expiry Date" > -->
+											</md-input-container>
+										</div>
+									</div>
+							</div>
+							<div class="layout-row layout-align-end-center">
+								<md-button class="merilytics-green-button" ng-show="FinancialDetailsController.isEditMode" ng-click="FinancialDetailsController.saveOrUpdate($event,bankDetailsForm)"  ng-disabled="basicDetailsForm.$invalid">Save</md-button>
+								<md-button class="merilytics-puple-button" ng-click="FinancialDetailsController.goToPersonalDetails()">Back</md-button>
+								<md-button class="merilytics-puple-button" ng-click="selectedTab=2">Next</md-button>
+							</div>
+						</form>
+					</div>
+					<div ng-show="selectedTab==2" class="flex layout-column" style="padding: 0 16px;">
+							<form name="bankDetailsForm" class="flex layout-column">
+							<div class="flex layout-column" style="margin-top: 8px">
+									<div class="layout-row">
+										<div class="layout-column flex-gt-xs-50 flex-gt-md-30">
+											<label>Bank<span style="color: red">*</span></label>
+										<!-- 	<span ng-show="!FinancialDetailsController.isEditMode" class="unSaved-span">{{basicDetails.bankName}}</span> -->
+											<md-input-container >
+													<input type="text" ng-model="basicDetails.bankName"  name="bankName" ng-class = "FinancialDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'"required aria-label="Bank"  ng-disabled="!FinancialDetailsController.isEditMode">
+													<div ng-messages="bankDetailsForm.bankName.$error">
+  			 											<div ng-message="required">Bank name is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+									</div>
+									<div class="layout-row">
+										<div class="layout-column flex-gt-xs-50 flex-gt-md-30">
+											<label>Account Number <span style="color: red">*</span></label>
+											<md-input-container >
+													<input type="text" ng-model="basicDetails.bankAccountNumber"  name="bankAccountNumber" ng-class = "FinancialDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'"required aria-label="Account Number" ng-disabled="!FinancialDetailsController.isEditMode">
+													<div ng-messages="bankDetailsForm.bankAccountNumber.$error">
+  			 											<div ng-message="required">Account Number is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+									</div>
+									<div class="layout-row">
+										<div class="layout-column flex-gt-xs-50 flex-gt-md-30">
+											<label>Branch<span style="color: red">*</span></label>
+											<!-- <span ng-show="!FinancialDetailsController.isEditMode" class="unSaved-span">{{basicDetails.bankBranch}}</span> -->
+											<md-input-container >
+													<input type="text" ng-model="basicDetails.bankBranch" name="bankBranch" ng-class = "FinancialDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" required aria-label="Branch" ng-disabled="!FinancialDetailsController.isEditMode">
+													<div ng-messages="bankDetailsForm.bankBranch.$error">
+  			 											<div ng-message="required">Branch is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+									</div>
+									<div class="layout-row">
+										<div class="layout-column flex-gt-xs-50 flex-gt-md-30">
+											<label>IFSC Code<span style="color: red">*</span></label>
+											<!-- <span ng-show="!FinancialDetailsController.isEditMode" class="unSaved-span">{{basicDetails.bankIFSCCode}}</span> -->
+											<md-input-container>
+													<input type="text" ng-model="basicDetails.bankIFSCCode" name="bankIFSCCode" ng-class = "FinancialDetailsController.isEditMode ? 'InputEditMode' : 'InputViewMode'" required  aria-label="IFSC Code" ng-disabled="!FinancialDetailsController.isEditMode" >
+													<div ng-messages="bankDetailsForm.bankIFSCCode.$error">
+  			 											<div ng-message="required">IFSC Code is required.</div>
+  			 										</div>
+											</md-input-container>
+										</div>
+									</div>
+							</div>
+							<div class="layout-row layout-align-end-center">
+								<md-button class="merilytics-green-button" ng-show="FinancialDetailsController.isEditMode" ng-click="FinancialDetailsController.saveOrUpdate($event,bankDetailsForm)"  ng-disabled="bankDetailsForm.$invalid">Save</md-button>
+								<md-button class="merilytics-puple-button" ng-click="selectedTab=1">Back</md-button>
+								<md-button class="merilytics-puple-button" ui-sref="Home.IndividualEmployee.EducationalDetails">Next</md-button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<style>
+	.selected-tab{
+		background: white;
+		color: #95Af28;
+		margin-top: 5px;
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+	}
+	.merilytics-header{
+		font-size: 16px !important
+	}
+	.md-select-value{
+		min-width: 180px;
+		min-height: 30px;
+	}
+	md-select:not([disabled]):focus .md-select-value{
+	border-bottom-color: white !important;
+	}
+	.selected-notificationNumbers {
+		background-color: #95AF28;
+		border-radius: 50px;
+		align-self: baseline;
+		padding: 0px 5px;
+		margin-right: 4px;
+		margin-top: 4px;
+		color: white;
+	}
+	.unselected-notificationNumbers {
+		background-color: #626262;
+		border-radius: 50px;
+		align-self: baseline;
+		padding: 0px 5px;
+		margin-right: 4px;
+		margin-top: 4px;
+		color: white;
+	}
+	.border-view{
+		border-radius: 10px
+	}
+	.border-view1{
+		border-top-right-radius: 10px;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+	textarea{
+		height: 60px;
+		background: #ddd;
+		border-radius: 8px;
+		box-shadow: 0 0 23px 0 #ddd;
+		border: 1px solid #ddd;
+	}
+	md-checkbox{
+		margin-bottom:0 !important
+	}
+	
+.customDatePickerHeight > div > input {
+   height: 35px !important;
+}
+.personal-details-label{
+	font-size: 14px !important;
+	color:#626262 !important;
+	font-weight: unset !important;
+}
+.InputEditMode{
+background : #ededed !important;
+padding-left : 4px;
+box-shadow: inset 0px 2px 2px 0px #ccc !important;
+}
+.InputViewMode{
+background : #f5f5f5 !important;
+border : 1px solid #ddd !important;
+}
+/* .cutCorner{
+	border:1px solid #eaeaea;
+    position:relative;
+    display:inline-block;
+    background:red;
+}
+.cutCorner img{
+	display:block;
+}
+.cutCorner:before {
+    position:absolute; left:-1px; bottom:-1px; content:'';
+    border-bottom: 70px solid #eaeaea;
+    border-right: 70px solid transparent;
+} */	
+</style>
+

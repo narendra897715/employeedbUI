@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:anigen="http://www.anigen.org/namespace"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="40"
+   height="40"
+   viewBox="0 0 10.583333 10.583334"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="location.svg">
+  <defs
+     id="defs2">
+    <clipPath
+       id="highcharts-arkei0j-6">
+      <rect
+         id="rect4570"
+         height="268"
+         width="508"
+         y="0"
+         x="0"
+         fill="none" />
+    </clipPath>
+    <g
+       anigen:name="New group"
+       id="g9423">
+      <g
+         transform=""
+         anigen:group="New group"
+         anigen:type="animationState"
+         anigen:name="Layer 1"
+         id="g9170"
+         anigen:number="0">
+        <animateTransform
+           id="animateTransform8165"
+           style=""
+           anigen:note="null"
+           fill="freeze"
+           accumulate="none"
+           additive="sum"
+           repeatCount="2"
+           begin="0s"
+           dur="20s"
+           keySplines="0 0 1 1"
+           keyTimes="0;1"
+           calcMode="spline"
+           values="333.98495712159723 130.0574598594548 113.04563818740957;333.98495712159723 130.0574598594548 113.04563818740957"
+           type="rotate"
+           attributeType="auto"
+           attributeName="transform" />
+      </g>
+    </g>
+    <g
+       anigen:name="New group"
+       id="g9423-6">
+      <g
+         transform=""
+         anigen:group="New group"
+         anigen:type="animationState"
+         anigen:name="Layer 1"
+         id="g9170-4"
+         anigen:number="0">
+        <animateTransform
+           id="animateTransform8165"
+           style=""
+           anigen:note="null"
+           fill="freeze"
+           accumulate="none"
+           additive="sum"
+           repeatCount="2"
+           begin="0s"
+           dur="20s"
+           keySplines="0 0 1 1"
+           keyTimes="0;1"
+           calcMode="spline"
+           values="333.98495712159723 130.0574598594548 113.04563818740957;333.98495712159723 130.0574598594548 113.04563818740957"
+           type="rotate"
+           attributeType="auto"
+           attributeName="transform" />
+      </g>
+    </g>
+    <clipPath
+       id="highcharts-68">
+      <rect
+         id="rect5398"
+         height="298"
+         width="580"
+         y="0"
+         x="0" />
+    </clipPath>
+    <clipPath
+       id="highcharts-53">
+      <rect
+         id="rect5565"
+         height="298"
+         width="580"
+         y="0"
+         x="0" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="115.23304"
+     inkscape:cy="-29.539069"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1600"
+     inkscape:window-height="837"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-286.41665)"
+     style="opacity:1">
+    <g
+       id="g5054"
+       transform="matrix(0.00944771,0,0,0.00944771,0.66388367,287.11411)"
+       style="stroke-width:28.00503922;fill:#95af28;fill-opacity:1">
+      <path
+         id="path5052"
+         d="m 500,10 c -202.4,0 -367.5,172.5 -367.5,376.7 0,213.9 196.8,449.9 326.6,578.7 0.5,0.6 22.1,24.6 48.8,24.6 0.1,0 2.3,0 2.4,0 26.6,0 48.1,-24 48.6,-24.6 C 668.9,826.9 867.6,591.1 867.6,386.7 867.5,182.5 733.1,10 500,10 Z m 0,612.5 c -135.3,0 -245,-109.7 -245,-245 0,-135.3 109.7,-245 245,-245 135.3,0 245,109.7 245,245 0,135.3 -109.7,245 -245,245 z"
+         inkscape:connector-curvature="0"
+         style="stroke-width:28.00503922;fill:#95af28;fill-opacity:1" />
+    </g>
+    <g
+       id="g5757"
+       transform="matrix(0.03527778,0,0,-0.03527778,0,409.32296)"
+       style="fill:#000000;stroke:none" />
+  </g>
+  <style
+     id="style3952"
+     type="text/css">
+	.st0{fill:#4D4D4D;}
+</style>
+  <style
+     id="style4482"
+     type="text/css">
+	.st0{fill:#ED1C24;}
+</style>
+  <style
+     id="style5084"
+     type="text/css">
+	.st0{fill:#2B3033;}
+</style>
+</svg>

@@ -1,0 +1,291 @@
+  
+<div layout="column" layout-fill layout-padding flex style="background:white;border-radius: 10px;">
+	<div class="layout-column flex" style="background: #eaeaea;border-radius: 10px">
+		<div style="min-height: 50px" class="layout-row">
+			<div class="layout-row flex-xs-50 flex-gt-xs-45 flex-gt-sm-25 flex-25 layout-align-start-center">
+				<span><img ng-src="Assets\\exp-details_black.svg" style="height: 40px;padding: 0 8px"></span>
+				<span class="view-header">Experience Details</span>				
+			</div>
+			<div class="flex layout-column" style="background: white;margin-right: -8px;margin-top: -8px;">
+				<div class="cutCorner"></div>
+			</div>
+			<div class="flex-80 layout-align-end-center layout-row" style="background: white;margin-left: 8px;margin-top: -8px;margin-right: -8px;">
+				<span>
+					<md-checkbox ng-model="selectedEmployee.isActive" ng-disabled="true" aria-label="selectedEmployee.isActive"  ng-click = "ExperienceDetailsController.changeEmploymentStatus()" style = "margin-bottom: 0">
+	            		<span style = "color: #626262 !important;">Employee Status:</span>&nbsp;<span ng-style="{ 'color' : selectedEmployee.isActive ? '#95af28' : '#383085' }">{{selectedEmployee.isActive?  'Active' : 'Inactive'}} &nbsp;&nbsp;&nbsp;</span>
+	          		</md-checkbox>
+				</span>
+				<span style="color: #626262 !important"> 
+						<span class="hide-sm hide-xs">Employee Name & ID:&nbsp;</span> 
+						<span class="hide-xs" style="color: #626262 !important;font-weight: bold;" ng-show="selectedEmployee.employeeID>0">{{selectedEmployee.employeeName}}&nbsp;&nbsp;[&nbsp;{{selectedEmployee.employeeID}}&nbsp;]</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="layout-row flex">
+			<div class="flex layout-column" style="padding: 0 8px;">
+ 				<div class="layout-row" style="padding: 0 8px; margin: 10px 0px" ng-show="selectedEmployee.isActive">
+					<span class="layout-row layout-align-space-around-center new-button-screen" ng-click = "ExperienceDetailsController.ChangeDetails(null)"> <span>Add New Company</span> <i class= "material-icons" style="font-size: 24px !important">add_circle_outline</i></span>				
+				</div>
+				<div flex style="background: white;border-radius:10px" class="layout-column flex">
+					<div class="flex layout-column" style="padding: 0 16px;">
+							<form name="EducationalDetailsForm" class="flex layout-column">							
+							 <div class="flex layout-column">								
+							  <md-table-container class="employees-table">
+								<table md-table>
+									<thead md-head>
+										<tr md-row class= "borderBottom">
+											<th md-column style="color: #95af28; font-size: 14px">Working period</th>
+											<th md-column style="color: #95af28; font-size: 14px; padding-right: 10px; max-width : 500px; overflow: hidden;text-overflow: ellipsis">Company Name</th>
+											<th md-column style="color: #95af28; font-size: 14px;padding-right: 10px; max-width : 500px; overflow: hidden;text-overflow: ellipsis">Location</th>
+											<th md-column style="color: #95af28; font-size: 14px;padding-right: 10px; max-width : 300px; overflow: hidden;text-overflow: ellipsis">Designation</th>
+											<th md-column style="color: #95af28; font-size: 14px;padding-right: 10px; max-width : 300px; overflow: hidden;text-overflow: ellipsis">CTC</th>						
+											<th md-column style="color: #95af28; font-size: 14px">Actions</th>
+										</tr>					
+									</thead>				
+									<tbody md-body>					
+										<tr md-row ng-repeat="data in ExperienceDetailsController.Details">
+											<td md-cell style = "padding-right : 10px" ng-click="ExperienceDetailsController.ChangeDetails(data)" >{{data['startDate'] | date : 'MMM yyyy'}} - {{data['endDate'] | date : 'MMM yyyy'}}<md-tooltip>{{data['startDate'] | date : 'dd MMM yyyy'}} - {{data['endDate'] | date : 'dd MMM yyyy'}}</md-tooltip></td>
+											<td md-cell style = "padding-right : 10px; max-width : 500px; overflow: hidden;text-overflow: ellipsis" ng-click="ExperienceDetailsController.ChangeDetails(data)">{{data['companyName']}}<md-tooltip>{{data['companyName']}}</md-tooltip></td>
+											<td md-cell style = "padding-right : 10px" ng-click="ExperienceDetailsController.ChangeDetails(data)">{{data['location']}}<md-tooltip>{{data['location']}}</md-tooltip></td>
+											<td md-cell style = "padding-right : 10px" ng-click="ExperienceDetailsController.ChangeDetails(data)">{{data['designation']}}<md-tooltip>{{data['designation']}}</md-tooltip></td>
+											<td md-cell style = "padding-right : 10px" ng-click="ExperienceDetailsController.ChangeDetails(data)">{{data['ctc']}}<md-tooltip>{{data['ctc']}}</md-tooltip></td>
+											
+											<td md-cell style="min-width:50px !important;max-width: 50px !important">
+												 <md-menu>							                      
+								                     <i md-menu-origin class="material-icons" ng-click="$mdOpenMenu()" style = "cursor:pointer">storage</i>
+								                     <md-menu-content width="2">
+								                          <md-menu-item>
+								                              <md-button ng-click = "ExperienceDetailsController.ChangeDetails(data)" style="display:inherit">
+								                              	<i class= "material-icons">mode_edit</i>Edit
+								                              </md-button>
+								                          </md-menu-item>
+								                          <md-menu-item>
+								                              <md-button ng-click = "ExperienceDetailsController.deleteDetails(data)" style="display:inherit"><i class= "material-icons">delete</i>Delete</md-button>
+								                          </md-menu-item>
+								                      </md-menu-content>
+								                  </md-menu>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+					<div flex layout= "row" layout-align="center center" style= "text-shadow: 1px 1px rgb(216, 216, 216)" ng-if = "ExperienceDetailsController.Details.length == 0">No details to show</div>
+							    	
+				</div>
+				<div class="layout-row layout-align-end-center">
+					<md-button class="merilytics-puple-button" ui-sref="Home.IndividualEmployee.EducationalDetails">Back</md-button>	
+					<md-button class="merilytics-puple-button" ui-sref="Home.IndividualEmployee.SkillDetails">Next</md-button>
+				</div>
+			</form>
+		 </div>					
+		</div>
+	  </div>
+	</div>
+  </div>
+</div> 
+
+
+<script type="text/ng-template" id="ExperienceDetails.html">
+
+<md-dialog aria-label="New Experience details" style= "width : 60%; height: auto">
+
+    <form flex name = "newExperienceDetailsForm">
+      <md-toolbar>
+        <div class="md-toolbar-tools" style= "background-color: white; color: black">
+          <h2>Add New Experience details</h2> 
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="closeView()"> <md-tooltip>Close</md-tooltip>
+            <img ng-src="Assets\close.png" aria-label="Close dialog"></img>
+          </md-button>
+		</div>
+      </md-toolbar>
+
+ <md-dialog-content> 
+        <div class="md-dialog-content" flex layout= "column" style = "padding-bottom:0px">
+
+      <div flex layout = "row" style = "padding-bottom: 15px">
+        <div flex= "20">Company Name<span style = "color:red">*</span></div> 
+        <div>:</div>
+        <div flex layout-align = "center center">
+            <md-input-container class="md-block">
+                <input type="text" ng-model="ExperienceDetailsController.details['companyName']" name="companyName"  aria-label="Company" style = "min-width:100% !important" required>
+				  <div ng-messages="newExperienceDetailsForm.companyName.$error">
+                        <div ng-message="required">Company name is required.</div>
+                  </div>              
+            </md-input-container>
+        </div>
+      </div>
+
+      
+
+      <div flex layout = "row" style= "padding: 15px 0px">
+        <div flex= "50" layout= "row">
+          <div flex= "40">Start Date<span style = "color:red">*</span></div>
+          <div>:</div>
+          <div flex>
+              <md-input-container class="md-block">                      
+                  <md-datepicker md-open-on-focus onkeydown="return false" ng-model = "ExperienceDetailsController.details.startDate" name="startDate" md-placeholder = "Enter date"  md-max-date = "ExperienceDetailsController.details.endDate" required></md-datepicker>
+                  <div ng-messages="newExperienceDetailsForm.startDate.$error">
+                        <div ng-message="required">Start date is required.</div>
+                  </div>
+              </md-input-container>
+          </div>
+        </div>
+        <div flex layout= "row" style= "padding-left: 8%">
+            <div flex= "40">End Date<span style = "color:red">*</span></div> 
+            <div>:</div>
+            <div flex>
+                <md-input-container class="md-block">                       
+                    <md-datepicker md-open-on-focus onkeydown="return false" ng-model = "ExperienceDetailsController.details.endDate" name="endDate" md-placeholder = "Enter date"  md-min-date = "ExperienceDetailsController.details.startDate" required></md-datepicker>
+                    <div ng-messages="newExperienceDetailsForm.endDate.$error">
+                        <div ng-message="required">End date is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </div>
+        </div>
+
+	<div flex layout = "row" style= "padding: 15px 0px">
+        <div flex = "50" layout= "row" layout-align = "space-between center">
+          <div flex= "40">Designation<span style = "color:red">*</span></div>
+          <div>:</div>
+          <div flex>
+              <md-input-container class="md-block">
+                  <input type="text" ng-model="ExperienceDetailsController.details.designation" name="designation"  aria-label="designation" required>
+                  <div ng-messages="newExperienceDetailsForm.designation.$error">
+                      <div ng-message="required">Designation is required.</div>
+                  </div>                         
+              </md-input-container>
+          </div>
+        </div>
+        <div flex = "50" layout= "row" style= "padding-left: 8%">
+            <div flex= "40">Location<span style = "color:red">*</span></div>
+            <div>:</div>
+            <div flex>
+                <md-input-container class="md-block">
+                    <input type="text" ng-model="ExperienceDetailsController.details.location" name="location"  aria-label="location" required>
+                    <div ng-messages="newExperienceDetailsForm.location.$error">
+                        <div ng-message="required">Location is required.</div>
+                    </div>                           
+                </md-input-container>
+            </div>
+        </div>
+        </div>
+
+	<div flex layout = "row" style= "padding: 15px 0px">
+            <div flex = "50" layout= "row" layout-align = "space-between center">
+              <div flex= "40">Awards</div>
+              <div>:</div>
+              <div flex>                  
+				<md-input-container md-no-float class="md-block">
+					<input type="text" ng-model="ExperienceDetailsController.details.awards" name="awards"  aria-label="awards">					
+				</md-input-container>
+              </div>
+            </div>
+            <div flex = "50" layout= "row" style= "padding-left: 8%">
+                <div flex= "40">CTC<span style = "color:red">*</span></div>
+                <div>:</div>
+                <div flex>
+                    <md-input-container class="md-block">
+                        <input type="text" ng-model="ExperienceDetailsController.details.ctc" name="ctc"  aria-label="ctc" required>
+                        <div ng-messages="newExperienceDetailsForm.ctc.$error">
+                            <div ng-message="required">CTC is required.</div>
+                        </div>                           
+                    </md-input-container>
+                </div>
+            </div>
+           </div>
+
+		 <div flex layout = "row" style= "padding-top: 15px">
+                <div flex= "20">Remarks</div>
+                <div>:</div>
+                <div flex>
+                    <md-input-container class="md-block">                        
+                        <textarea ng-model="ExperienceDetailsController.details.remarks" name="remarks" md-select-on-focus></textarea>
+                        <div ng-messages="newExperienceDetailsForm.remarks.$error">
+                            <div ng-message="required">Remarks are required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+              </div>
+
+			<md-card-actions layout="row" layout-align="end center" style="background: white">
+                <md-button class="md-raised" style="background-color:#95af28; color:white; margin: 10px; " ng-click="ExperienceDetailsController.saveOrUpdate($event,newExperienceDetailsForm,ExperienceDetailsController.details)">Save</md-button>
+                <md-button class="md-raised" style="background-color:gray; color:white; margin: 10px 0px;" ng-click="closeView()">Close</md-button>
+            </md-card-actions>
+
+	</div>
+      </md-dialog-content>  
+  
+       
+    </form>
+  </md-dialog>
+</script>
+
+<style>
+ .md-button {
+	text-transform :capitalize;
+}
+.md-open-menu-container.md-active {
+	border : 1px solid #95af28;
+}
+md-menu-content {
+	padding:0px !important;
+}
+md-menu-item > .md-button {
+	padding:0px 5px !important;
+}
+.material-icons {
+	padding: 0px 5px;
+}
+md-input-container {
+	margin:0px 20px;
+	padding:0px;
+	background-color:white !important;
+}
+md-input-container .md-input{
+	border: 1px solid #ddd !important; 
+	border-radius: 5px !important;
+	box-shadow: inset 0px 2px 2px 0px #ddd !important;
+	/* text-shadow: 1px 1px rgb(216, 216, 216) !important;  */
+	background-color: white !important;
+	margin-top:-8px;
+	/* max-width :200px !important; */
+	padding-left: 4px !important	
+}
+.md-datepicker-input {
+	background-color: white !important;
+	min-width: 100% !important;
+/* max-width:200px !important; */
+	font-size: 16px !important; 
+
+}
+._md-datepicker-floating-label > md-datepicker .md-datepicker-button {
+	display:none;
+}
+md-input-container textarea.md-input {
+	background-color: white !important;
+	min-width : 100% !important;
+}
+.md-icon-button + .md-datepicker-input-container {
+	margin-left :0px;
+}
+._md-datepicker-floating-label._md-datepicker-has-calendar-icon .md-input-message-animation{
+	margin:0px;
+}
+.md-default-theme .md-datepicker-input-mask-opaque, .md-datepicker-input-mask-opaque{
+	height:25px !important;
+	max-width:190px !important;
+	top:-5px !important;
+}
+.md-datepicker-triangle-button.md-button.md-icon-button {
+margin-top:-8px;
+}
+tr.borderBottom th{
+	border-bottom : 1px solid black;
+}
+table.md-table td.md-cell:last-child, table.md-table th.md-column:last-child {
+	padding: 0px;
+}
+</style>
